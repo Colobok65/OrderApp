@@ -1,7 +1,7 @@
 package ru.scur.orderapp.service;
 
 import org.springframework.stereotype.Service;
-import ru.scur.orderapp.DAO.GoodsDAO;
+import ru.scur.orderapp.dao.GoodsDAO;
 import ru.scur.orderapp.converter.GoodsConverter;
 import ru.scur.orderapp.dto.GoodsDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsException;
