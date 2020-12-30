@@ -24,27 +24,27 @@ public class GoodsOrderController {
     }
 
     @PostMapping
-    public GoodsOrderDTO createOrder(@RequestBody GoodsOrderDTO goodsOrderDTO){
-        return goodsOrderService.createOrder(goodsOrderDTO);
+    public GoodsOrderDTO createGoodsOrder(@RequestBody GoodsOrderDTO goodsOrderDTO){
+        return goodsOrderService.createGoodsOrder(goodsOrderDTO);
     }
 
     @GetMapping
-    public List<GoodsOrderDTO> getAllOrders(){
-        return goodsOrderService.getAllOrders();
+    public List<GoodsOrderDTO> getAllGoodsOrders(){
+        return goodsOrderService.getAllGoodsOrders();
     }
 
     @GetMapping("/{id}")
-    public GoodsOrderDTO getOrderById(@PathVariable("id") Long id){
-        return goodsOrderService.getOrderById(id);
+    public GoodsOrderDTO getGoodsOrderById(@PathVariable("id") Long id){
+        return goodsOrderService.getGoodsOrderById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOrderById(@PathVariable("id") Long id){
-        goodsOrderService.deleteOrderById(id);
+    public void deleteGoodsOrderById(@PathVariable("id") Long id){
+        goodsOrderService.deleteGoodsOrderById(id);
     }
 
     @PutMapping("/{id}")
-    public GoodsOrderDTO editOrder(@PathVariable("id") Long id, @RequestBody GoodsOrderDTO goodsOrderDTO){
-        return goodsOrderService.editOrder(id, goodsOrderDTO);
+    public GoodsOrderDTO editGoodsOrder(@PathVariable("id") Long id, @RequestBody GoodsOrderDTO goodsOrderDTO){
+        return goodsOrderService.editGoodsOrder(id, goodsOrderDTO);
     }
 }
