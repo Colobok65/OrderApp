@@ -9,6 +9,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class GoodsOrderConverter {
+    private final OrderLineConverter orderLineConverter;
+
+    public GoodsOrderConverter(OrderLineConverter orderLineConverter) {
+        this.orderLineConverter = orderLineConverter;
+    }
 
     public GoodsOrderDTO toOrderDTO(GoodsOrder goodsOrder){
         return new GoodsOrderDTO(
@@ -16,7 +21,7 @@ public class GoodsOrderConverter {
                 goodsOrder.getClient(),
                 goodsOrder.getDate(),
                 goodsOrder.getAddress(),
-                goodsOrder.getOrderLines()
+                orderLineConverter.toOrderLineDTOList(goodsOrder.getOrderLines())
         );
     }
 

@@ -19,7 +19,7 @@ public class OrderLineConverter {
         );
     }
 
-    public List<OrderLineDTO> toOrderDTOList(List<OrderLine> list){
+    public List<OrderLineDTO> toOrderLineDTOList(List<OrderLine> list){
         return list.stream().map(this::toOrderLineDTO).collect(Collectors.toList());
     }
 }

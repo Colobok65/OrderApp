@@ -2,6 +2,7 @@ package ru.scur.orderapp.service;
 
 import org.junit.jupiter.api.Test;
 import ru.scur.orderapp.converter.GoodsOrderConverter;
+import ru.scur.orderapp.converter.OrderLineConverter;
 import ru.scur.orderapp.dao.GoodsOrderDAO;
 import ru.scur.orderapp.dto.GoodsOrderDTO;
 import ru.scur.orderapp.util.GoodsOrderDTOUtil;
@@ -18,8 +19,9 @@ import static org.mockito.Mockito.*;
 class GoodsOrderServiceTest {
 
     private final GoodsOrderDAO goodsOrderDAOMock = mock(GoodsOrderDAO.class);
+    private final OrderLineConverter orderLineConverterMock = mock(OrderLineConverter.class);
 
-    private final GoodsOrderConverter goodsOrderConverter = new GoodsOrderConverter();
+    private final GoodsOrderConverter goodsOrderConverter = new GoodsOrderConverter(orderLineConverterMock);
 
     private final GoodsOrderService goodsOrderService =
             new GoodsOrderService(goodsOrderDAOMock, goodsOrderConverter);
