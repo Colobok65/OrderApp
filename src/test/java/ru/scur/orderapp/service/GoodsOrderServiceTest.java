@@ -30,7 +30,7 @@ class GoodsOrderServiceTest {
     void shouldCreateOrder() {
         GoodsOrderDTO expected = GoodsOrderDTOUtil.getGoodsOrderDTO();
         GoodsOrder goodsOrder = GoodsOrderUtil.getGoodsOrder();
-        GoodsOrder sss = new GoodsOrder(null, goodsOrder.getClientName(), goodsOrder.getDate(), goodsOrder.getAddress(), null);
+        GoodsOrder sss = new GoodsOrder(null, goodsOrder.getClient(), goodsOrder.getDate(), goodsOrder.getAddress(), null);
         when(goodsOrderDAOMock.save(any())).thenReturn(goodsOrder);
         GoodsOrderDTO actual = goodsOrderService.createGoodsOrder(expected);
 

@@ -21,11 +21,11 @@ public class GoodsOrderService {
         this.goodsOrderConverter = goodsOrderConverter;
     }
 
-    public GoodsOrderDTO createGoodsOrder(GoodsOrderDTO clientName){
+    public GoodsOrderDTO createGoodsOrder(GoodsOrderDTO goodsOrderDTO){
         GoodsOrder goodsOrder = new GoodsOrder();
-        goodsOrder.setClientName(clientName.getClientName());
-        goodsOrder.setDate(clientName.getDate());
-        goodsOrder.setAddress(clientName.getAddress());
+        goodsOrder.setClient(goodsOrderDTO.getClient());
+        goodsOrder.setDate(goodsOrderDTO.getDate());
+        goodsOrder.setAddress(goodsOrderDTO.getAddress());
         return goodsOrderConverter.toOrderDTO(goodsOrderDAO.save(goodsOrder));
     }
 
@@ -40,7 +40,7 @@ public class GoodsOrderService {
     public GoodsOrderDTO editGoodsOrder(Long id, GoodsOrderDTO goodsOrderDTO){
         GoodsOrder goodsOrder = getGoodsOrder(id);
         if (goodsOrder == null) throw new ThereIsNoSuchGoodsOrderException();
-        goodsOrder.setClientName(goodsOrderDTO.getClientName());
+        goodsOrder.setClient(goodsOrderDTO.getClient());
         goodsOrder.setDate(goodsOrderDTO.getDate());
         goodsOrder.setAddress(goodsOrderDTO.getAddress());
         return goodsOrderConverter.toOrderDTO(goodsOrderDAO.save(goodsOrder));

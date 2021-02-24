@@ -1,21 +1,24 @@
-<p-table [value]="goodsOrders" styleClass="p-datatable-gridlines">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>ID</th>
-      <th>Адрес</th>
-      <th>Клиент</th>
-      <th>Дата</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-goodsOrder>
-    <tr>
-      <td>{{goodsOrder.id}}</td>
-      <td>{{goodsOrder.address}}</td>
-      <td>{{goodsOrder.clientName}}</td>
-      <td>{{goodsOrder.date}}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<div style="display: flex; flex-direction: column">
+  <div style="display: flex; flex-direction: row" *ngFor="let order of goodsOrders">
+    <div style="margin-right: 1rem">{{order.id}}</div>
+    <div style="margin-right: 1rem">{{order.address}}</div>
+    <div style="margin-right: 1rem">{{order.client}}</div>
+    <div style="margin-right: 1rem">{{order.date}}</div>
+  </div>
+</div>
+<div>
+  <button (click)="editGoodsOrder()">edit</button>
+</div>
+<div>
+  <button (click)="getGoodsOrderById()">get order</button>
+  {{goodsOrder?.id}}
+  {{goodsOrder?.address}}
+  {{goodsOrder?.client}}
+</div>
+<div>
+  <button (click)="deleteGoodsOrderByID()">delete</button>
+</div>
+
 
 
 

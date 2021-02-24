@@ -28,7 +28,7 @@ public class GoodsOrder {
     private Long id;
 
     @Column(name = "client")
-    private String clientName;
+    private String client;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
