@@ -32,17 +32,17 @@ export class GoodsService {
     return this.httpClient.get<GoodsDTO[]>(this.endpoint);
   }
 
-  getGoodsById(): Observable<GoodsDTO> {
-    return this.httpClient.get<GoodsDTO>(`${this.endpoint}/2`);
-  }
-
-  editGoods(goodsDTO: GoodsDTO): Observable<any> {
-    return this.httpClient.put(`${this.endpoint}/1`, goodsDTO.name = 'Shugar', this.httpOptions);
-  }
-
-  deleteGoodsById(): Observable<GoodsDTO> {
-    const url = `${this.endpoint}/2`;
-    return this.httpClient.delete<GoodsDTO>(url, this.httpOptions);
-  }
+  // getGoodsById(): Observable<GoodsDTO> {
+  //   return this.httpClient.get<GoodsDTO>(`${this.endpoint}/2`);
+  // }
+  //
+  // editGoods(goodsDTO: GoodsDTO): Observable<any> {
+  //   return this.httpClient.put(`${this.endpoint}/1`, goodsDTO.name = 'Shugar', this.httpOptions);
+  // }
+  //
+  // deleteGoodsById(): Observable<GoodsDTO> {
+  //   const url = `${this.endpoint}/2`;
+  //   return this.httpClient.delete<GoodsDTO>(url, this.httpOptions);
+  // }
 }
 

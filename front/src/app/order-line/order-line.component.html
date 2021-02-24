@@ -1,0 +1,18 @@
+<p-table [value]="orderLines" styleClass="p-datatable-gridlines">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Заказ</th>
+      <th>Товар</th>
+      <th>Количество</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-orderLine>
+    <tr>
+      <td>{{orderLine.id}}</td>
+      <td>{{orderLine.orderId}}</td>
+      <td>{{orderLine.goodsId}}</td>
+      <td>{{orderLine.count}}</td>
+    </tr>
+  </ng-template>
+</p-table>

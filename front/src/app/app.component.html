@@ -1,2 +1,14 @@
 <h1>{{title}}</h1>
-<app-goods-order></app-goods-order>
+<nav class="navigation">
+  <a routerLink="/order_app/order">
+    <button pButton type="button" label="Order" ></button>
+  </a>
+  <a routerLink="/order_app/goods">
+    <button pButton type="button" label="Goods" ></button>
+  </a>
+  <a routerLink="/order_app/line">
+    <button pButton type="button" label="Order Line" ></button>
+  </a>
+</nav>
+<router-outlet></router-outlet>
+

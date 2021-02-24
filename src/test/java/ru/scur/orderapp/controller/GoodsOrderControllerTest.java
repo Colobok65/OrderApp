@@ -47,7 +47,7 @@ public class GoodsOrderControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.client").value("client"));
+                .andExpect(jsonPath("$.clientName").value("client"));
 
         verify(goodsOrderService).getGoodsOrderById(1L);
     }
@@ -81,7 +81,7 @@ public class GoodsOrderControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.client").value("client"));
+                .andExpect(jsonPath("$.clientName").value("client"));
 
         verify(goodsOrderService).createGoodsOrder(goodsOrderDTO);
     }
@@ -97,13 +97,13 @@ public class GoodsOrderControllerTest {
     @Test
     public void shouldEditGoodsOrderById() throws Exception{
         GoodsOrderDTO goodsOrderDTO = GoodsOrderDTOUtil.getGoodsOrderDTO();
-        goodsOrderDTO.setClient("client 2");
+        goodsOrderDTO.setClientName("client 2");
         when(goodsOrderService.editGoodsOrder(any(),any())).thenReturn(goodsOrderDTO);
         mockMvc.perform(put("/order_app/order/1")
                 .content(mapper.writeValueAsString(goodsOrderDTO))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.client").value("client 2"));
+                .andExpect(jsonPath("$.clientName").value("client 2"));
     }
 }

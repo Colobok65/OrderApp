@@ -9,30 +9,30 @@ import {GoodsService, GoodsDTO} from '../services/goods/goods.service';
 export class GoodsComponent implements OnInit {
 
   goodses: GoodsDTO[] = [];
-  goods!: GoodsDTO;
+  // goods: GoodsDTO;
 
   constructor(
     private goodsService: GoodsService,
   ) {}
 
   ngOnInit(): void {
-    this.getGoodsById();
+    // this.getGoodsById();
     this.getAllGoods();
-    this.editGoods();
+    // this.editGoods();
   }
 
-  editGoods(): void {
-    this.goodsService.editGoods(this.goods)
-      .subscribe(result => this.goods = result);
-  }
-  deleteGoodsByID(): void{
-    this.goodsService.deleteGoodsById()
-      .subscribe(result => this.goods = result);
-  }
-  getGoodsById(): void {
-    this.goodsService.getGoodsById()
-      .subscribe(result => this.goods = result);
-  }
+  // editGoods(): void {
+  //   this.goodsService.editGoods(this.goods)
+  //     .subscribe(result => this.goods = result);
+  // }
+  // deleteGoodsByID(): void{
+  //   this.goodsService.deleteGoodsById()
+  //     .subscribe(result => this.goods = result);
+  // }
+  // getGoodsById(): void {
+  //   this.goodsService.getGoodsById()
+  //     .subscribe(result => this.goods = result);
+  // }
 
   getAllGoods(): void {
     this.goodsService.getAllGoods()

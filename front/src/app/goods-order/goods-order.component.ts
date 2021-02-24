@@ -9,32 +9,29 @@ import {GoodsOrderDTO, GoodsOrderService} from '../services/goods-order/goods-or
 export class GoodsOrderComponent implements OnInit {
 
   goodsOrders: GoodsOrderDTO[] = [];
-  goodsOrder: GoodsOrderDTO | undefined;
 
-  constructor(
-    private goodsOrderService: GoodsOrderService,
-  ) {
+  constructor(private goodsOrderService: GoodsOrderService) {
   }
 
   ngOnInit(): void {
     this.getAllGoodsOrders();
-    this.getGoodsOrderById();
+    // this.getGoodsOrderById();
   }
 
-  editGoodsOrder(): void {
-    if (this.goodsOrder) {
-      this.goodsOrderService.editGoodsOrder(this.goodsOrder)
-        .subscribe(result => this.goodsOrder = result);
-    }
-  }
-  deleteGoodsOrderByID(): void{
-    this.goodsOrderService.deleteGoodsOrderByID()
-      .subscribe(result => this.goodsOrder = result);
-  }
-  getGoodsOrderById(): void {
-    this.goodsOrderService.getGoodsOrderById()
-      .subscribe(result => this.goodsOrder = result);
-  }
+  // editGoodsOrder(): void {
+  //   if (this.goodsOrder) {
+  //     this.goodsOrderService.editGoodsOrder(this.goodsOrder)
+  //       .subscribe(result => this.goodsOrder = result);
+  //   }
+  // }
+  // deleteGoodsOrderByID(): void{
+  //   this.goodsOrderService.deleteGoodsOrderByID()
+  //     .subscribe(result => this.goodsOrder = result);
+  // }
+  // getGoodsOrderById(): void {
+  //   this.goodsOrderService.getGoodsOrderById()
+  //     .subscribe(result => this.goodsOrder = result);
+  // }
 
   getAllGoodsOrders(): void {
     this.goodsOrderService.getAllGoodsOrders()

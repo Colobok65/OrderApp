@@ -36,7 +36,7 @@ public class GoodsOrderDaoTest {
         GoodsOrder actual = goodsOrderDAO.findById(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getClient(), actual.getClient());
+        assertEquals(expected.getClientName(), actual.getClientName());
         assertEquals(expected.getDate(), actual.getDate());
         assertEquals(expected.getAddress(), actual.getAddress());
     }
@@ -70,12 +70,12 @@ public class GoodsOrderDaoTest {
     public void shouldEditGoodsOrder(){
         String client = "client 1";
         GoodsOrder goodsOrder = goodsOrderDAO.findAll().get(0);
-        goodsOrder.setClient(client);
+        goodsOrder.setClientName(client);
         goodsOrderDAO.save(goodsOrder);
 
         GoodsOrder edited = goodsOrderDAO.findById(goodsOrder.getId()).get();
 
-        assertEquals(client, edited.getClient());
+        assertEquals(client, edited.getClientName());
     }
 
 }

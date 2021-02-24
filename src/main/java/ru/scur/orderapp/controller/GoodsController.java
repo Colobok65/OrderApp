@@ -19,7 +19,6 @@ public class GoodsController {
 
     private final GoodsService goodsService;
 
-
     public GoodsController(GoodsService goodsService) {
         this.goodsService = goodsService;
     }

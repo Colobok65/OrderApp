@@ -16,7 +16,7 @@ export class OrderLineDTO {
 export class GoodsOrderDTO {
   constructor(
     public id: number,
-    public client: string,
+    public clientName: string,
     public date: Date,
     public address: string,
     public orderLines: OrderLineDTO[],
@@ -35,27 +35,24 @@ export class GoodsOrderService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(
-    private httpClient: HttpClient,
-  ) {
-  }
+  constructor(private httpClient: HttpClient) { }
 
   getAllGoodsOrders(): Observable<GoodsOrderDTO[]> {
     return this.httpClient.get<GoodsOrderDTO[]>(this.endpoint);
   }
 
-  getGoodsOrderById(): Observable<GoodsOrderDTO> {
-    return this.httpClient.get<GoodsOrderDTO>(`${this.endpoint}/1`);
-  }
-
-  editGoodsOrder(updated: GoodsOrderDTO): Observable<any> {
-    updated.address = 'updated address';
-    updated.client = 'updated client';
-    return this.httpClient.put(`${this.endpoint}/3`, updated, this.httpOptions);
-  }
-
-  deleteGoodsOrderByID(): Observable<GoodsOrderDTO> {
-    const url = `${this.endpoint}/3`;
-    return this.httpClient.delete<GoodsOrderDTO>(url, this.httpOptions);
-  }
+  // getGoodsOrderById(): Observable<GoodsOrderDTO> {
+  //   return this.httpClient.get<GoodsOrderDTO>(`${this.endpoint}/1`);
+  // }
+  //
+  // editGoodsOrder(updated: GoodsOrderDTO): Observable<any> {
+  //   updated.address = 'updated address';
+  //   updated.clientName = 'updated client';
+  //   return this.httpClient.put(`${this.endpoint}/3`, updated, this.httpOptions);
+  // }
+  //
+  // deleteGoodsOrderByID(): Observable<GoodsOrderDTO> {
+  //   const url = `${this.endpoint}/3`;
+  //   return this.httpClient.delete<GoodsOrderDTO>(url, this.httpOptions);
+  // }
 }
