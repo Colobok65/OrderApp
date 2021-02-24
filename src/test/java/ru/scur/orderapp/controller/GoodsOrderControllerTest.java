@@ -97,7 +97,7 @@ public class GoodsOrderControllerTest {
     @Test
     public void shouldEditGoodsOrderById() throws Exception{
         GoodsOrderDTO goodsOrderDTO = GoodsOrderDTOUtil.getGoodsOrderDTO();
-        goodsOrderDTO.setClient("client 2");
+        goodsOrderDTO.setClientName("client 2");
         when(goodsOrderService.editGoodsOrder(any(),any())).thenReturn(goodsOrderDTO);
         mockMvc.perform(put("/order_app/order/1")
                 .content(mapper.writeValueAsString(goodsOrderDTO))
