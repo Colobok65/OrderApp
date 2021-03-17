@@ -1,14 +1,15 @@
 <h1>{{title}}</h1>
 <nav class="navigation">
   <a routerLink="/order_app/order">
-    <button pButton type="button" label="Order" ></button>
+    <button pButton pRipple type="button" label="Заказы" class="p-button-outlined"></button>
   </a>
   <a routerLink="/order_app/goods">
-    <button pButton type="button" label="Goods" ></button>
+    <button pButton pRipple type="button" label="Товары" class="p-button-outlined"></button>
   </a>
   <a routerLink="/order_app/line">
-    <button pButton type="button" label="Order Line" ></button>
+    <button pButton pRipple type="button" label="Order Line" class="p-button-outlined"></button>
   </a>
 </nav>
+<br>
 <router-outlet></router-outlet>
 

@@ -2,6 +2,8 @@ package ru.scur.orderapp.service;
 
 import org.springframework.stereotype.Service;
 import ru.scur.orderapp.converter.OrderLineConverter;
+import ru.scur.orderapp.dao.GoodsDAO;
+import ru.scur.orderapp.dao.GoodsOrderDAO;
 import ru.scur.orderapp.dao.OrderLineDAO;
 import ru.scur.orderapp.dto.OrderLineDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchOrderLineException;
@@ -14,10 +16,22 @@ public class OrderLineService {
 
     private final OrderLineDAO orderLineDAO;
     private final OrderLineConverter orderLineConverter;
+    private final GoodsOrderDAO goodsOrderDAO;
+    private final GoodsDAO goodsDAO;
 
-    public OrderLineService(OrderLineDAO orderLineDAO, OrderLineConverter orderLineConverter) {
+    public OrderLineService(OrderLineDAO orderLineDAO, OrderLineConverter orderLineConverter, GoodsOrderDAO goodsOrderDAO, GoodsDAO goodsDAO) {
         this.orderLineDAO = orderLineDAO;
         this.orderLineConverter = orderLineConverter;
+        this.goodsOrderDAO = goodsOrderDAO;
+        this.goodsDAO = goodsDAO;
+    }
+
+    public OrderLineDTO createOrderLine(OrderLineDTO orderLineDTO){
+        OrderLine orderLine = new OrderLine();
+        orderLine.setGoodsOrder(goodsOrderDAO.getOne(orderLineDTO.getOrderId()));
+        orderLine.setGoods(goodsDAO.getOne(orderLineDTO.getGoodsId()));
+        orderLine.setCount(orderLineDTO.getCount());
+        return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
     }
 
     public List<OrderLineDTO> getAllOrderLines() {

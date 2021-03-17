@@ -2,14 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {tap} from 'rxjs/operators';
 
 export class GoodsDTO {
-  constructor(
-    public id: number,
-    public name: string,
-    public price: number,
-  ) {
-  }
+    public id!: number;
+    public name!: string;
+    public price!: number;
 }
 
 @Injectable({
@@ -23,13 +21,18 @@ export class GoodsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(
-    private httpClient: HttpClient,
-  ) {
-  }
+  constructor(private httpClient: HttpClient) { }
 
   getAllGoods(): Observable<GoodsDTO[]> {
     return this.httpClient.get<GoodsDTO[]>(this.endpoint);
+  }
+
+  getGoodsById(id: number): Observable<GoodsDTO> {
+    return this.httpClient.get<GoodsDTO>(this.endpoint + '/' + id);
+  }
+
+  saveGoods(goods: GoodsDTO): Observable<GoodsDTO> {
+    return  this.httpClient.post<GoodsDTO>(this.endpoint, goods);
   }
 
   // getGoodsById(): Observable<GoodsDTO> {

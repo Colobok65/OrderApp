@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {GoodsComponent} from './goods/goods.component';
-import {GoodsOrderComponent} from './goods-order/goods-order.component';
-import {OrderLineComponent} from './order-line/order-line.component';
+import {GoodsComponent} from './components/goods/goods.component';
+import {GoodsOrderComponent} from './components/goods-order/goods-order.component';
+import {OrderLineComponent} from './components/order-line/order-line.component';
 
 const routes: Routes = [
   { path: 'order_app/goods', component: GoodsComponent },
@@ -13,6 +13,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

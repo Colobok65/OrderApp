@@ -21,21 +21,31 @@ export class GoodsComponent implements OnInit {
     // this.editGoods();
   }
 
-  // editGoods(): void {
-  //   this.goodsService.editGoods(this.goods)
-  //     .subscribe(result => this.goods = result);
-  // }
-  // deleteGoodsByID(): void{
-  //   this.goodsService.deleteGoodsById()
-  //     .subscribe(result => this.goods = result);
-  // }
-  // getGoodsById(): void {
-  //   this.goodsService.getGoodsById()
-  //     .subscribe(result => this.goods = result);
-  // }
-
   getAllGoods(): void {
     this.goodsService.getAllGoods()
       .subscribe(result => this.goodses = result);
+  }
+
+  onRowEditInit(goods: GoodsDTO): void {
+    this.clonedGoods[goods.id] = {...goods};
+  }
+
+  onRowEditSave(goods: GoodsDTO): Subscription {
+    if (goods.price > 0) {
+      delete this.clonedGoods[goods.id];
+    }
+    return this.goodsService.saveGoods(goods).subscribe(
+      () => this.router.navigate(['productlist'])
+    );
+
+  }
+
+  onRowEditCancel(goods: GoodsDTO, index: number): void {
+    this.goodses[index] = this.clonedGoods[goods.id];
+    delete this.clonedGoods[goods.id];
+  }
+
+  showEdit(): void{
+    this.isEdit = !this.isEdit;
   }
 }

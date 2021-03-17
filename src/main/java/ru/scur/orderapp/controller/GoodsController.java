@@ -34,7 +34,7 @@ public class GoodsController {
     }
 
     @GetMapping("/{id}")
-    public GoodsDTO getOrderById(@PathVariable("id") Long id){
+    public GoodsDTO getGoodsById(@PathVariable("id") Long id){
         return goodsService.getGoodsById(id);
     }
 
@@ -44,7 +44,7 @@ public class GoodsController {
     }
 
     @PutMapping("/{id}")
-    public GoodsDTO editOrder(@PathVariable("id") Long id, @RequestBody GoodsDTO goodsDTO){
+    public GoodsDTO editGoods(@PathVariable("id") Long id, @RequestBody GoodsDTO goodsDTO){
         return goodsService.editGoods(id, goodsDTO);
     }
 }

@@ -18,20 +18,9 @@ export class GoodsOrderComponent implements OnInit {
     // this.getGoodsOrderById();
   }
 
-  // editGoodsOrder(): void {
-  //   if (this.goodsOrder) {
-  //     this.goodsOrderService.editGoodsOrder(this.goodsOrder)
-  //       .subscribe(result => this.goodsOrder = result);
-  //   }
-  // }
-  // deleteGoodsOrderByID(): void{
-  //   this.goodsOrderService.deleteGoodsOrderByID()
-  //     .subscribe(result => this.goodsOrder = result);
-  // }
-  // getGoodsOrderById(): void {
-  //   this.goodsOrderService.getGoodsOrderById()
-  //     .subscribe(result => this.goodsOrder = result);
-  // }
+  showEdit(): void {
+    this.isEdit = !this.isEdit;
+  }
 
   getAllGoodsOrders(): void {
     this.goodsOrderService.getAllGoodsOrders()

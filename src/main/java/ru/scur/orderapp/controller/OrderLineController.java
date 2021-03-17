@@ -1,7 +1,6 @@
 package ru.scur.orderapp.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.scur.orderapp.dto.GoodsDTO;
 import ru.scur.orderapp.dto.OrderLineDTO;
 import ru.scur.orderapp.service.OrderLineService;
 

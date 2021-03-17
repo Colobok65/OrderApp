@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderLineDTO, OrderLineService} from '../services/order-line/order-line.service';
+import {OrderLineDTO, OrderLineService} from '../../services/order-line/order-line.service';
 
 @Component({
   selector: 'app-order-line',
