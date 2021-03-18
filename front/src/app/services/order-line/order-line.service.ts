@@ -4,13 +4,11 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 export class OrderLineDTO {
-  constructor(
-    private id: number,
-    private orderId: number,
-    private goodsId: number,
-    private count: number,
-  ) {
-  }
+  private id!: number;
+  private orderId!: number;
+  private goodsId!: number;
+  private goodsName!: string;
+  private count!: number;
 }
 
 @Injectable({

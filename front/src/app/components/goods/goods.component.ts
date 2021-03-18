@@ -30,14 +30,16 @@ export class GoodsComponent implements OnInit {
     this.clonedGoods[goods.id] = {...goods};
   }
 
-  onRowEditSave(goods: GoodsDTO): Subscription {
-    if (goods.price > 0) {
-      delete this.clonedGoods[goods.id];
-    }
-    return this.goodsService.saveGoods(goods).subscribe(
-      () => this.router.navigate(['productlist'])
+  onRowEditSave(goods: GoodsDTO): void {
+    this.goodsService.editGoods(goods).subscribe(
+      () => this.getAllGoods()
     );
+  }
 
+  saveGoods(): void {
+    this.goodsService.saveGoods(this.goods).subscribe(
+      () => this.getAllGoods()
+    );
   }
 
   onRowEditCancel(goods: GoodsDTO, index: number): void {
@@ -45,7 +47,13 @@ export class GoodsComponent implements OnInit {
     delete this.clonedGoods[goods.id];
   }
 
-  showEdit(): void{
-    this.isEdit = !this.isEdit;
+  deleteGoodsById(id: number): void {
+    this.goodsService.deleteGoodsById(id).subscribe(
+      () => this.getAllGoods()
+    );
+  }
+
+  showAdd(): void {
+    this.isAdd = !this.isAdd;
   }
 }

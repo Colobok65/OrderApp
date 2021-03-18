@@ -39,6 +39,7 @@ public class GoodsService {
     public GoodsDTO editGoods(Long id, GoodsDTO goodsDTO){
         Goods goods = getGoods(id);
         if (goods == null) throw new ThereIsNoSuchGoodsException();
+        goods.setId(goodsDTO.getId());
         goods.setName(goodsDTO.getName());
         goods.setPrice(goodsDTO.getPrice());
         return goodsConverter.toGoodsDTO(goodsDAO.save(goods));

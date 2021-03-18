@@ -42,7 +42,6 @@ public class OrderLineService {
         return orderLineDAO.findById(id).orElseThrow(ThereIsNoSuchOrderLineException::new);
     }
 
-
     public OrderLineDTO getOrderLineById(Long id) {
         return orderLineConverter.toOrderLineDTO(getOrderLine(id));
     }

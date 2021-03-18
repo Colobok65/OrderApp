@@ -15,7 +15,6 @@ export class GoodsOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllGoodsOrders();
-    // this.getGoodsOrderById();
   }
 
   showEdit(): void {
@@ -25,5 +24,32 @@ export class GoodsOrderComponent implements OnInit {
   getAllGoodsOrders(): void {
     this.goodsOrderService.getAllGoodsOrders()
       .subscribe(result => this.goodsOrders = result);
+  }
+
+  onRowEditInit(goodsOrder: GoodsOrderDTO): void {
+    this.clonedGoodsOrder[goodsOrder.id] = {...goodsOrder};
+  }
+
+  onRowEditSave(goodsOrder: GoodsOrderDTO): void {
+    this.goodsOrderService.editGoodsOrder(goodsOrder).subscribe(
+      () => this.getAllGoodsOrders()
+    );
+  }
+
+  onRowEditCancel(goodsOrder: GoodsOrderDTO, index: number): void {
+    this.goodsOrders[index] = this.clonedGoodsOrder[goodsOrder.id];
+    delete this.clonedGoodsOrder[goodsOrder.id];
+  }
+
+  deleteGoodsOrderById(id: number): void {
+    this.goodsOrderService.deleteGoodsById(id).subscribe(
+      () => this.getAllGoodsOrders()
+    );
+  }
+
+  saveGoods(): void {
+    this.goodsOrderService.saveGoodsOrder(this.goodsOrder).subscribe(
+      () => this.getAllGoodsOrders()
+    );
   }
 }

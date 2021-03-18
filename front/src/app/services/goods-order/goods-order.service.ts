@@ -2,26 +2,22 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 export class OrderLineDTO {
-  constructor(
-    private id: number,
-    private orderId: number,
-    private goodsId: number,
-    private count: number,
-  ) {
-  }
+  public id!: number;
+  public orderId!: number;
+  public goodsId!: number;
+  public goodsName!: string;
+  public count!: number;
 }
 
 export class GoodsOrderDTO {
-  constructor(
-    public id: number,
-    public client: string,
-    public date: Date = new Date(),
-    public address: string,
-    public orderLines: OrderLineDTO[],
-  ) {
-  }
+    public id!: number;
+    public client!: string;
+    public date = new Date();
+    public address!: string;
+    public orderLines!: OrderLineDTO[];
 }
 
 @Injectable({
@@ -41,18 +37,15 @@ export class GoodsOrderService {
     return this.httpClient.get<GoodsOrderDTO[]>(this.endpoint);
   }
 
-  // getGoodsOrderById(): Observable<GoodsOrderDTO> {
-  //   return this.httpClient.get<GoodsOrderDTO>(`${this.endpoint}/1`);
-  // }
-  //
-  // editGoodsOrder(updated: GoodsOrderDTO): Observable<any> {
-  //   updated.address = 'updated address';
-  //   updated.client = 'updated client';
-  //   return this.httpClient.put(`${this.endpoint}/3`, updated, this.httpOptions);
-  // }
-  //
-  // deleteGoodsOrderByID(): Observable<GoodsOrderDTO> {
-  //   const url = `${this.endpoint}/3`;
-  //   return this.httpClient.delete<GoodsOrderDTO>(url, this.httpOptions);
-  // }
+  editGoodsOrder(goodsOrder: GoodsOrderDTO): Observable<GoodsOrderDTO> {
+    return  this.httpClient.put<GoodsOrderDTO>(`${this.endpoint}/${goodsOrder.id}`, goodsOrder);
+  }
+
+  deleteGoodsById(id: number): Observable<GoodsOrderDTO> {
+    return this.httpClient.delete<GoodsOrderDTO>(this.endpoint + '/' + id);
+  }
+
+  saveGoodsOrder(goodsOrder: GoodsOrderDTO): Observable<GoodsOrderDTO> {
+    return this.httpClient.post<GoodsOrderDTO>(this.endpoint, goodsOrder);
+  }
 }

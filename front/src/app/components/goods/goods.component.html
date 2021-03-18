@@ -1,47 +1,22 @@
-<!--<p-table [value]="goodses" styleClass="p-datatable-gridlines">-->
-<!--  <ng-template pTemplate="header">-->
-<!--    <tr>-->
-<!--      <th>ID</th>-->
-<!--      <th>Название товара</th>-->
-<!--      <th>Цена</th>-->
-<!--      <th>Действие</th>-->
-<!--    </tr>-->
-<!--  </ng-template>-->
-<!--  <ng-template pTemplate="body" let-goods>-->
-<!--    <tr>-->
-<!--      <td>{{goods.id}}</td>-->
-<!--      <td>{{goods.name}}</td>-->
-<!--      <td>{{goods.price}}</td>-->
-<!--      <td>-->
-<!--        <button pButton pRipple type="button" label="Изменить"-->
-<!--                class="p-button-rounded p-button-success"-->
-<!--                style="margin-right: 1rem" (click)="showEdit()"></button>-->
-<!--        <button pButton pRipple type="button" label="Удалить"-->
-<!--                class="p-button-rounded p-button-danger"></button>-->
-<!--      </td>-->
-<!--    </tr>-->
-<!--    <tr *ngIf="isEdit">-->
-<!--      <td></td>-->
-<!--      <td>-->
-<!--        <input type="text" placeholder="Название товара" class="form-control"-->
-<!--               [(ngModel)]="goods.name" name="name">-->
-<!--      </td>-->
-<!--      <td>-->
-<!--        <input type="text" placeholder="Цена" class="form-control"-->
-<!--               [(ngModel)]="goods.price" name="price">-->
-<!--      </td>-->
-<!--    </tr>-->
+<div class="container-1">
+  <button pButton pRipple type="button" label="Добавить товар"
+          class="p-button-outlined p-button-warning"
+          style="margin-bottom: 1rem" (click)="showAdd()"></button>
+    <div *ngIf="isAdd" style="margin-bottom: 1rem">
+      <input type="text" pInputText class="p-mr-2 p-d-inline"
+             [(ngModel)]="goods.name" placeholder="введите название"
+             name="name" style="margin-right: 10px">
+      <input type="text" pInputText class="p-d-inline"
+             [(ngModel)]="goods.price" placeholder="введите цену"
+             name="model" style="margin-right: 10px">
+      <button pButton pRipple label="Сохранить" icon="pi pi-check" (click)="saveGoods()"></button>
+    </div>
+</div>
 
-<!--  </ng-template>-->
-<!--</p-table>-->
-<!--<br>-->
-<!--<button pButton pRipple type="button" label="Добавить новый товар" class="p-button-raised p-button-warning"></button>-->
-
-<div class="card">
+<div class="container-2">
   <p-table [value]="goodses" dataKey="id" editMode="row">
     <ng-template pTemplate="header">
       <tr>
-        <th>Id</th>
         <th>Название</th>
         <th>Цена</th>
         <th>Редактировать</th>
@@ -51,16 +26,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-goods let-editing="editing" let-ri="rowIndex">
       <tr [pEditableRow]="goods">
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="goods.id">
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{goods.id}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
         <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
@@ -87,7 +52,7 @@
           <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(goods, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
         </td>
         <td>
-          <button pButton type="button" label="Delete" icon="pi pi-trash"></button>
+          <button pButton type="button" label="" icon="pi pi-trash" (click)="deleteGoodsById(goods.id)"></button>
         </td>
       </tr>
     </ng-template>

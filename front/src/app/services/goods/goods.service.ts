@@ -32,20 +32,15 @@ export class GoodsService {
   }
 
   saveGoods(goods: GoodsDTO): Observable<GoodsDTO> {
-    return  this.httpClient.post<GoodsDTO>(this.endpoint, goods);
+    return this.httpClient.post<GoodsDTO>(this.endpoint, goods);
   }
 
-  // getGoodsById(): Observable<GoodsDTO> {
-  //   return this.httpClient.get<GoodsDTO>(`${this.endpoint}/2`);
-  // }
-  //
-  // editGoods(goodsDTO: GoodsDTO): Observable<any> {
-  //   return this.httpClient.put(`${this.endpoint}/1`, goodsDTO.name = 'Shugar', this.httpOptions);
-  // }
-  //
-  // deleteGoodsById(): Observable<GoodsDTO> {
-  //   const url = `${this.endpoint}/2`;
-  //   return this.httpClient.delete<GoodsDTO>(url, this.httpOptions);
-  // }
+  editGoods(goods: GoodsDTO): Observable<GoodsDTO> {
+    return  this.httpClient.put<GoodsDTO>(`${this.endpoint}/${goods.id}`, goods);
+  }
+
+  deleteGoodsById(id: number): Observable<GoodsDTO> {
+    return this.httpClient.delete<GoodsDTO>(this.endpoint + '/' + id);
+  }
 }
 

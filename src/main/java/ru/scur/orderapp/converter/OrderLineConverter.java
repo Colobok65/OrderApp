@@ -15,6 +15,7 @@ public class OrderLineConverter {
                 orderLine.getId(),
                 orderLine.getGoodsOrder().getId(),
                 orderLine.getGoods().getId(),
+                orderLine.getGoods().getName(),
                 orderLine.getCount()
         );
     }
