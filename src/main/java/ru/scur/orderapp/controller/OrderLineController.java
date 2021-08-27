@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order_app/line")
+@CrossOrigin
 public class OrderLineController {
 
     private final OrderLineService orderLineService;

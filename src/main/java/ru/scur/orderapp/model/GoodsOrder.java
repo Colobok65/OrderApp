@@ -1,19 +1,12 @@
 package ru.scur.orderapp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -30,9 +23,9 @@ public class GoodsOrder {
     @Column(name = "client")
     private String client;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "date")
-    private Date date;
+    @Column(updatable = false)
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
+    private LocalDateTime date;
 
     @Column(name = "address")
     private String address;

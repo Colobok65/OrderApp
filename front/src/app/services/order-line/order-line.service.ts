@@ -1,31 +1,21 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
 
-export class OrderLineDTO {
-  private id!: number;
-  private orderId!: number;
-  private goodsId!: number;
-  private goodsName!: string;
-  private count!: number;
-}
+const LINE_API = 'http://localhost:9000/order_app/line';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderLineService {
+  constructor(private http: HttpClient) { }
 
-  private endpoint = `${environment.apiUrl}/order_app/line`;
+  getAllLines(): Observable<any> {
+    return this.http.get(LINE_API);
+  }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  constructor(private httpClient: HttpClient) { }
-
-  getAllOrderLines(): Observable<OrderLineDTO[]> {
-    return this.httpClient.get<OrderLineDTO[]>(this.endpoint);
+  getLineById(id: number): Observable<any> {
+    return this.http.get(LINE_API + '/' + id);
   }
 }
 

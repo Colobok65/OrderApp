@@ -1,60 +1,32 @@
-<div class="container-1">
-  <button pButton pRipple type="button" label="Добавить товар"
-          class="p-button-outlined p-button-warning"
-          style="margin-bottom: 1rem" (click)="showAdd()"></button>
-    <div *ngIf="isAdd" style="margin-bottom: 1rem">
-      <input type="text" pInputText class="p-mr-2 p-d-inline"
-             [(ngModel)]="goods.name" placeholder="введите название"
-             name="name" style="margin-right: 10px">
-      <input type="text" pInputText class="p-d-inline"
-             [(ngModel)]="goods.price" placeholder="введите цену"
-             name="model" style="margin-right: 10px">
-      <button pButton pRipple label="Сохранить" icon="pi pi-check" (click)="saveGoods()"></button>
-    </div>
-</div>
-
-<div class="container-2">
-  <p-table [value]="goodses" dataKey="id" editMode="row">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Название</th>
-        <th>Цена</th>
-        <th>Редактировать</th>
-        <th>Удалить</th>
-        <th style="width:8rem"></th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-goods let-editing="editing" let-ri="rowIndex">
-      <tr [pEditableRow]="goods">
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="goods.name" required>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{goods.name}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="goods.price">
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{goods.price | currency: 'USD'}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td>
-          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(goods)" class="p-button-rounded p-button-text"></button>
-          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(goods)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(goods, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-        </td>
-        <td>
-          <button pButton type="button" label="" icon="pi pi-trash" (click)="deleteGoodsById(goods.id)"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+<div *ngIf="isDataLoaded">
+  <div class="card">
+    <h2>Goods</h2>
+    <p-table [value]="goodses">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+          <th pSortableColumn="quantity">Count <p-sortIcon field="quantity"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-goods>
+        <tr>
+          <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input type="text" [(ngModel)]="goods.name">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{goods.name}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td pEditableColumn>
+            {{goods.price | currency: 'RUB '}}
+          </td>
+          <td>{{goods.quantity}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>

@@ -1,46 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {tap} from 'rxjs/operators';
+import {Goods} from '../../models/Goods';
 
-export class GoodsDTO {
-    public id!: number;
-    public name!: string;
-    public price!: number;
-}
+const GOODS_API = 'http://localhost:9000/order_app/goods';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoodsService {
 
-  private endpoint = `${environment.apiUrl}/order_app/goods`;
+  constructor(private http: HttpClient) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
-  constructor(private httpClient: HttpClient) { }
-
-  getAllGoods(): Observable<GoodsDTO[]> {
-    return this.httpClient.get<GoodsDTO[]>(this.endpoint);
+  getAllGoods(): Observable<any> {
+    return this.http.get(GOODS_API);
   }
 
-  getGoodsById(id: number): Observable<GoodsDTO> {
-    return this.httpClient.get<GoodsDTO>(this.endpoint + '/' + id);
-  }
-
-  saveGoods(goods: GoodsDTO): Observable<GoodsDTO> {
-    return this.httpClient.post<GoodsDTO>(this.endpoint, goods);
-  }
-
-  editGoods(goods: GoodsDTO): Observable<GoodsDTO> {
-    return  this.httpClient.put<GoodsDTO>(`${this.endpoint}/${goods.id}`, goods);
-  }
-
-  deleteGoodsById(id: number): Observable<GoodsDTO> {
-    return this.httpClient.delete<GoodsDTO>(this.endpoint + '/' + id);
+  addGoods(goods: Goods): Observable<any> {
+    return this.http.post(GOODS_API, goods);
   }
 }
 

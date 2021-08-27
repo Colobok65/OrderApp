@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { OrderLineComponent } from './components/order-line/order-line.component';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -19,15 +20,16 @@ import { InputTextModule } from 'primeng/inputtext';
     GoodsComponent,
     OrderLineComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TableModule,
-    ButtonModule,
-    FormsModule,
-    InputTextModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        TableModule,
+        ButtonModule,
+        FormsModule,
+        InputTextModule,
+        RippleModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -5,10 +5,10 @@ import {GoodsOrderComponent} from './components/goods-order/goods-order.componen
 import {OrderLineComponent} from './components/order-line/order-line.component';
 
 const routes: Routes = [
-  { path: 'order_app/goods', component: GoodsComponent },
-  { path: 'order_app/order', component: GoodsOrderComponent },
-  { path: 'order_app/line', component: OrderLineComponent },
-  { path: '', redirectTo: 'order_app/order', pathMatch: 'full' },
+  { path: 'goods', component: GoodsComponent },
+  { path: 'order', component: GoodsOrderComponent },
+  { path: 'line', component: OrderLineComponent },
+  { path: '', redirectTo: 'goods', pathMatch: 'full' },
 ];
 
 @NgModule({
