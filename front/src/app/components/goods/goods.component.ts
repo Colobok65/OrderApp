@@ -56,4 +56,50 @@ export class GoodsComponent implements OnInit {
   showAdd(): void {
     this.isAdd = !this.isAdd;
   }
+
+  addNewGoods(): void {
+    this.goodsFormBlock();
+    this.goodsButtonNone();
+  }
+
+  cancel(): void {
+    this.goodsFormNone();
+    this.goodsButtonBlock();
+  }
+
+  onRowEditInit(goods: Goods): void {
+    this.clonedGoods[goods.id || 0] = {...goods};
+  }
+
+  onRowEditSave(goods: Goods): void {
+    if (goods.price > 0) {
+      this.updateGoods(goods);
+      delete this.clonedGoods[goods.id || 0];
+    }
+  }
+
+  onRowEditCancel(goods: Goods, index: number): void {
+    this.goodses[index] = this.clonedGoods[goods.id || 0];
+    delete this.clonedGoods[goods.id || 0];
+  }
+
+  goodsFormBlock(): void {
+    // @ts-ignore
+    document.getElementById('addGoodsForm').style.display = 'block';
+  }
+
+  goodsFormNone(): void{
+    // @ts-ignore
+    document.getElementById('addGoodsForm').style.display = 'none';
+  }
+
+  goodsButtonBlock(): void{
+    // @ts-ignore
+    document.getElementById('addGoodsButton').style.display = 'block';
+  }
+
+  goodsButtonNone(): void {
+    // @ts-ignore
+    document.getElementById('addGoodsButton').style.display = 'none';
+  }
 }

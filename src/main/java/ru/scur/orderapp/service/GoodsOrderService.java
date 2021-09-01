@@ -24,7 +24,6 @@ public class GoodsOrderService {
     public GoodsOrderDTO createGoodsOrder(GoodsOrderDTO goodsOrderDTO){
         GoodsOrder goodsOrder = new GoodsOrder();
         goodsOrder.setClient(goodsOrderDTO.getClient());
-        goodsOrder.setDate(goodsOrderDTO.getDate());
         goodsOrder.setAddress(goodsOrderDTO.getAddress());
         return goodsOrderConverter.toOrderDTO(goodsOrderDAO.save(goodsOrder));
     }
@@ -41,7 +40,6 @@ public class GoodsOrderService {
         GoodsOrder goodsOrder = getGoodsOrder(id);
         if (goodsOrder == null) throw new ThereIsNoSuchGoodsOrderException();
         goodsOrder.setClient(goodsOrderDTO.getClient());
-        goodsOrder.setDate(goodsOrderDTO.getDate());
         goodsOrder.setAddress(goodsOrderDTO.getAddress());
         return goodsOrderConverter.toOrderDTO(goodsOrderDAO.save(goodsOrder));
     }

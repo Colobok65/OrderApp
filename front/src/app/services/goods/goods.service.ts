@@ -19,5 +19,17 @@ export class GoodsService {
   addGoods(goods: Goods): Observable<any> {
     return this.http.post(GOODS_API, goods);
   }
+
+  deleteGoods(id: number): Observable<any> {
+    return this.http.delete(GOODS_API + '/' + id);
+  }
+
+  updateGoods(id: number, goods: Goods): Observable<any> {
+    return this.http.put(GOODS_API + '/' + id, goods);
+  }
+
+  getGoodsById(id: number): Observable<any> {
+    return this.http.get(GOODS_API + '/' + id);
+  }
 }
 

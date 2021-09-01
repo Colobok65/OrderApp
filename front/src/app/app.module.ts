@@ -28,7 +28,7 @@ import {RippleModule} from 'primeng/ripple';
         ButtonModule,
         FormsModule,
         InputTextModule,
-        RippleModule
+        RippleModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

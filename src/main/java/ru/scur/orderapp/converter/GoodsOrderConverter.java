@@ -19,7 +19,6 @@ public class GoodsOrderConverter {
         return new GoodsOrderDTO(
                 goodsOrder.getId(),
                 goodsOrder.getClient(),
-                goodsOrder.getDate(),
                 goodsOrder.getAddress(),
                 orderLineConverter.toOrderLineDTOList(goodsOrder.getOrderLines())
         );

@@ -1,32 +1,74 @@
+<div>
+  <h1 style="text-align: center;
+      border-bottom: 3px solid cornflowerblue;">Goods</h1>
+</div>
+
 <div *ngIf="isDataLoaded">
-  <div class="card">
-    <h2>Goods</h2>
-    <p-table [value]="goodses">
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-          <th pSortableColumn="quantity">Count <p-sortIcon field="quantity"></p-sortIcon></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-goods>
-        <tr>
-          <td pEditableColumn>
-            <p-cellEditor>
-              <ng-template pTemplate="input">
-                <input type="text" [(ngModel)]="goods.name">
-              </ng-template>
-              <ng-template pTemplate="output">
-                {{goods.name}}
-              </ng-template>
-            </p-cellEditor>
+  <p-table [value]="goodses" dataKey="id" editMode="row">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+        <th style="width:8rem; text-align: center">Edit</th>
+        <th style="width:8rem; text-align: center">Delete</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-god let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="god">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="god.name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{god.name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="god.price" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{god.price | currency: 'RUB '}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(god)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(god)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(god, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+        </td>
+        <td style="text-align: center">
+          <button pButton class="p-button-danger"
+                  icon="pi pi-trash" (click)="deleteGoods(god.id)"></button>
           </td>
-          <td pEditableColumn>
-            {{goods.price | currency: 'RUB '}}
-          </td>
-          <td>{{goods.quantity}}</td>
-        </tr>
-      </ng-template>
-    </p-table>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div id="addGoodsForm" style="margin: 1rem 0; display: none">
+  <div style="display: flex">
+    <div class="p-field" style="margin-right: 1rem">
+      <label for="name" class="p-sr-only">Name</label>
+      <input id="name" type="text" pInputText [(ngModel)]="goods.name">
+    </div>
+    <div class="p-field" style="margin-right: 1rem">
+      <label for="price" class="p-sr-only">Price</label>
+      <input id="price" type="text" pInputText [(ngModel)]="goods.price">
+    </div>
+    <button pButton type="button" icon="pi pi-check" label="Create"
+            (click)="addGoods()" style="margin-right: 1rem"></button>
+    <button pButton type="button" label="Cancel" icon="pi pi-sign-in" (click)="cancel()"></button>
   </div>
 </div>
+
+<div id="addGoodsButton" style="margin-top: 1rem">
+  <button pButton label="Add new goods" (click)="addNewGoods()"></button>
+</div>
+
+
+
