@@ -57,16 +57,6 @@ export class GoodsComponent implements OnInit {
     this.isAdd = !this.isAdd;
   }
 
-  addNewGoods(): void {
-    this.goodsFormBlock();
-    this.goodsButtonNone();
-  }
-
-  cancel(): void {
-    this.goodsFormNone();
-    this.goodsButtonBlock();
-  }
-
   onRowEditInit(goods: Goods): void {
     this.clonedGoods[goods.id || 0] = {...goods};
   }
@@ -83,23 +73,33 @@ export class GoodsComponent implements OnInit {
     delete this.clonedGoods[goods.id || 0];
   }
 
+  addNewGoods(): void {
+    this.goodsFormBlock();
+    this.goodsButtonNone();
+  }
+
+  cancel(): void {
+    this.goodsFormNone();
+    this.goodsButtonBlock();
+  }
+
   goodsFormBlock(): void {
     // @ts-ignore
-    document.getElementById('addGoodsForm').style.display = 'block';
+    document.getElementById('addOrderForm').style.display = 'block';
   }
 
   goodsFormNone(): void{
     // @ts-ignore
-    document.getElementById('addGoodsForm').style.display = 'none';
+    document.getElementById('addOrderForm').style.display = 'none';
   }
 
   goodsButtonBlock(): void{
     // @ts-ignore
-    document.getElementById('addGoodsButton').style.display = 'block';
+    document.getElementById('addOrderButton').style.display = 'block';
   }
 
   goodsButtonNone(): void {
     // @ts-ignore
-    document.getElementById('addGoodsButton').style.display = 'none';
+    document.getElementById('addOrderButton').style.display = 'none';
   }
 }

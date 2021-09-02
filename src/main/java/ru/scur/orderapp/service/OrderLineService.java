@@ -58,4 +58,8 @@ public class OrderLineService {
         orderLine.setCount(orderLine.getCount());
         return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
     }
+
+    public List<OrderLineDTO> getLineByOrderId(Long orderId) {
+        return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoodsOrderId(orderId));
+    }
 }

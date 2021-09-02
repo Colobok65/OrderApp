@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GoodsOrder} from '../../models/GoodsOrder';
+import {Goods} from "../../models/Goods";
 
 const ORDER_API = 'http://localhost:9000/order_app/order';
 
@@ -18,5 +19,13 @@ export class GoodsOrderService {
 
   getAllOrders(): Observable<any> {
     return this.http.get(ORDER_API);
+  }
+
+  deleteOrder(id: number): Observable<any> {
+    return this.http.delete(ORDER_API + '/' + id);
+  }
+
+  updateOrder(id: number, order: GoodsOrder): Observable<any> {
+    return this.http.put(ORDER_API + '/' + id, order);
   }
 }

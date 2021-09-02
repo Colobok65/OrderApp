@@ -3,6 +3,7 @@ package ru.scur.orderapp.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,5 +22,5 @@ public class Goods {
     private float price;
 
     @OneToMany(mappedBy = "goods")
-    private List<OrderLine> orderLines;
+    private List<OrderLine> orderLines = new ArrayList<>();
 }

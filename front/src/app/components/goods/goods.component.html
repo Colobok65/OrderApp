@@ -29,7 +29,7 @@
         <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="god.price" required>
+              <input pInputText type="text" [(ngModel)]="god.price">
             </ng-template>
             <ng-template pTemplate="output">
               {{god.price | currency: 'RUB '}}

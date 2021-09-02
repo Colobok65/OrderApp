@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,12 +25,13 @@ public class GoodsOrder {
     private String client;
 
     @Column(updatable = false)
-    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    private LocalDateTime date;
+    @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss")
+    private LocalDateTime date = LocalDateTime.now();
 
     @Column(name = "address")
     private String address;
 
     @OneToMany(mappedBy = "goodsOrder")
-    private List<OrderLine> orderLines;
+    private List<OrderLine> orderLines = new ArrayList<>();
+
 }

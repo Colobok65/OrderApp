@@ -37,4 +37,10 @@ public class OrderLineController {
     public OrderLineDTO editOrder(@PathVariable("id") Long id, @RequestBody OrderLineDTO orderLineDTO){
         return orderLineService.editOrderLine(id, orderLineDTO);
     }
+
+    @GetMapping("/order/{order_id}")
+    public List<OrderLineDTO> findAllLinesByOrderId(@PathVariable("order_id") Long goodsOrderId) {
+        return orderLineService.getLineByOrderId(goodsOrderId);
+    }
+
 }
