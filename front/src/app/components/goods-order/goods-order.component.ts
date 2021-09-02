@@ -40,7 +40,10 @@ export class GoodsOrderComponent implements OnInit {
   }
 
   deleteOrder(id: number): void {
-    this.goodsOrderService.deleteOrder(id).subscribe(() => this.getAllOrders());
+    const result = confirm('Вы действительно хотите удалить этот заказ?');
+    if (result) {
+      this.goodsOrderService.deleteOrder(id).subscribe(() => this.getAllOrders());
+    }
   }
 
   updateOrder(order: GoodsOrder): void {
@@ -90,5 +93,9 @@ export class GoodsOrderComponent implements OnInit {
   orderButtonNone(): void {
     // @ts-ignore
     document.getElementById('addOrderButton').style.display = 'none';
+  }
+
+  showGoods(id: number): void {
+    this.router.navigate(['/line', id]);
   }
 }

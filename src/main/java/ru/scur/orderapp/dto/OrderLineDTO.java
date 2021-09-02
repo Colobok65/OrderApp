@@ -10,5 +10,5 @@ public class OrderLineDTO {
     private Long orderId;
     private Long goodsId;
     private String goodsName;
-    private int count;
+    private Long countNumber;
 }

@@ -30,7 +30,7 @@ public class OrderLineService {
         OrderLine orderLine = new OrderLine();
         orderLine.setGoodsOrder(goodsOrderDAO.getOne(orderLineDTO.getOrderId()));
         orderLine.setGoods(goodsDAO.getOne(orderLineDTO.getGoodsId()));
-        orderLine.setCount(orderLineDTO.getCount());
+        orderLine.setCountNumber(orderLineDTO.getCountNumber());
         return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
     }
 
@@ -55,7 +55,7 @@ public class OrderLineService {
         if (orderLine == null) throw new ThereIsNoSuchOrderLineException();
         orderLine.setGoodsOrder(orderLine.getGoodsOrder());
         orderLine.setGoods(orderLine.getGoods());
-        orderLine.setCount(orderLine.getCount());
+        orderLine.setCountNumber(orderLine.getCountNumber());
         return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
     }
 

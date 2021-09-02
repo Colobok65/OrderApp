@@ -85,21 +85,21 @@ export class GoodsComponent implements OnInit {
 
   goodsFormBlock(): void {
     // @ts-ignore
-    document.getElementById('addOrderForm').style.display = 'block';
+    document.getElementById('addGoodsForm').style.display = 'block';
   }
 
   goodsFormNone(): void{
     // @ts-ignore
-    document.getElementById('addOrderForm').style.display = 'none';
+    document.getElementById('addGoodsForm').style.display = 'none';
   }
 
   goodsButtonBlock(): void{
     // @ts-ignore
-    document.getElementById('addOrderButton').style.display = 'block';
+    document.getElementById('addGoodsButton').style.display = 'block';
   }
 
   goodsButtonNone(): void {
     // @ts-ignore
-    document.getElementById('addOrderButton').style.display = 'none';
+    document.getElementById('addGoodsButton').style.display = 'none';
   }
 }

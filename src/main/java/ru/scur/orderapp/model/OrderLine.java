@@ -28,6 +28,6 @@ public class OrderLine {
     @JoinColumn(name = "goods_id")
     private Goods goods;
 
-    @Column(name = "count")
-    private int count;
+    @Column(name = "count_number")
+    private Long countNumber;
 }

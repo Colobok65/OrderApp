@@ -6,8 +6,9 @@ import {OrderLineComponent} from './components/order-line/order-line.component';
 
 const routes: Routes = [
   { path: 'goods', component: GoodsComponent },
-  { path: 'order', component: GoodsOrderComponent },
+  { path: 'order', component: GoodsOrderComponent},
   { path: 'line', component: OrderLineComponent },
+  { path: 'line/:id', component: OrderLineComponent },
   { path: '', redirectTo: 'goods', pathMatch: 'full' },
 ];
 
