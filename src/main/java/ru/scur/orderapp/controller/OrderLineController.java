@@ -10,16 +10,19 @@ import java.util.List;
 @RequestMapping("/order_app/line")
 @CrossOrigin
 public class OrderLineController {
-
     private final OrderLineService orderLineService;
-
 
     public OrderLineController(OrderLineService orderLineService) {
         this.orderLineService = orderLineService;
     }
 
+    @PostMapping
+    public OrderLineDTO createOrderLine(@RequestBody OrderLineDTO orderLineDTO){
+        return orderLineService.createOrderLine(orderLineDTO);
+    }
+
     @GetMapping
-    public List<OrderLineDTO> getAllOrderLines () {
+    public List<OrderLineDTO> getAllOrderLines(){
         return orderLineService.getAllOrderLines();
     }
 
@@ -41,6 +44,11 @@ public class OrderLineController {
     @GetMapping("/order/{order_id}")
     public List<OrderLineDTO> findAllLinesByOrderId(@PathVariable("order_id") Long goodsOrderId) {
         return orderLineService.getLineByOrderId(goodsOrderId);
+    }
+
+    @GetMapping("/goods/{goods_id}")
+    public Float getGoodsPriceByGoodsId(@PathVariable("goods_id") Long goodsId) {
+        return orderLineService.findGoodsPriceByGoodsId(goodsId);
     }
 
 }

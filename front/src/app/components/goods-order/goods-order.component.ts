@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GoodsOrderDTO, GoodsOrderService} from '../services/goods-order/goods-order.service';
+import {GoodsOrderService} from '../../services/goods-order/goods-order.service';
+import {GoodsOrder} from '../../models/GoodsOrder';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-goods-order',
@@ -13,10 +15,8 @@ export class GoodsOrderComponent implements OnInit {
   order: GoodsOrder = {id: 0, address: '', date: '', client: '', lines: []};
   clonedOrders: { [s: string]: GoodsOrder; } = {};
 
-  goodsOrders: GoodsOrderDTO[] = [];
-
-  constructor(private goodsOrderService: GoodsOrderService) {
-  }
+  constructor(private goodsOrderService: GoodsOrderService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getAllOrders();

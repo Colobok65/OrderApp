@@ -10,7 +10,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class OrderLineComponent implements OnInit {
 
-  id = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
+  orderId = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
+  goodsPrice = 0;
   isDataLoaded = false;
   lines: OrderLine[] = [];
   line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: ''};
@@ -23,8 +24,13 @@ export class OrderLineComponent implements OnInit {
     this.getLinesForCurrentOrder();
   }
 
+  getGoodsPrice(id: number): void {
+    this.orderLineService.getGoodsPriceFromGoodsId(id)
+      .subscribe(data => this.goodsPrice = data);
+  }
+
   getLinesForCurrentOrder(): void {
-    this.orderLineService.getLinesByOrderId(this.id)
+    this.orderLineService.getLinesByOrderId(this.orderId)
       .subscribe(data => {
         this.lines = data;
         this.isDataLoaded = true;

@@ -62,4 +62,8 @@ public class OrderLineService {
     public List<OrderLineDTO> getLineByOrderId(Long orderId) {
         return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoodsOrderId(orderId));
     }
+
+    public Float findGoodsPriceByGoodsId(Long goodsId) {
+        return orderLineDAO.findGoodsPrice(goodsId);
+    }
 }

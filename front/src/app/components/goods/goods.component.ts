@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {GoodsService, GoodsDTO} from '../services/goods/goods.service';
+import {Component, OnInit} from '@angular/core';
+import {GoodsService} from '../../services/goods/goods.service';
+import {Goods} from '../../models/Goods';
 
 @Component({
   selector: 'app-goods',
@@ -8,53 +9,47 @@ import {GoodsService, GoodsDTO} from '../services/goods/goods.service';
 })
 export class GoodsComponent implements OnInit {
 
-  goodses: GoodsDTO[] = [];
-  // goods: GoodsDTO;
+  isDataLoaded = false;
+  goodses: Goods[] = [];
+  goods: Goods = {id: 0, name: '', price: 0};
+  clonedGoods: { [s: string]: Goods; } = {};
 
-  constructor(
-    private goodsService: GoodsService,
-  ) {}
+  constructor(private goodsService: GoodsService) {}
 
   ngOnInit(): void {
-    // this.getGoodsById();
     this.getAllGoods();
-    // this.editGoods();
   }
 
   getAllGoods(): void {
     this.goodsService.getAllGoods()
-      .subscribe(result => this.goodses = result);
+      .subscribe(
+        data => {
+          this.goodses = data;
+          this.isDataLoaded = true;
+        }
+      );
   }
 
-  onRowEditInit(goods: GoodsDTO): void {
-    this.clonedGoods[goods.id] = {...goods};
+  addGoods(): void {
+    this.goodsService.addGoods(this.goods).subscribe(() => {
+      this.goods.name = '';
+      this.goods.price = 0;
+      this.getAllGoods();
+      this.goodsFormNone();
+      this.goodsButtonBlock();
+    });
   }
 
-  onRowEditSave(goods: GoodsDTO): void {
-    this.goodsService.editGoods(goods).subscribe(
-      () => this.getAllGoods()
-    );
+  deleteGoods(id: number): void {
+    const result = confirm('Вы действительно хотите удалить этот товар?');
+    if (result) {
+      this.goodsService.deleteGoods(id).subscribe(() => this.getAllGoods());
+    }
   }
 
-  saveGoods(): void {
-    this.goodsService.saveGoods(this.goods).subscribe(
-      () => this.getAllGoods()
-    );
-  }
-
-  onRowEditCancel(goods: GoodsDTO, index: number): void {
-    this.goodses[index] = this.clonedGoods[goods.id];
-    delete this.clonedGoods[goods.id];
-  }
-
-  deleteGoodsById(id: number): void {
-    this.goodsService.deleteGoodsById(id).subscribe(
-      () => this.getAllGoods()
-    );
-  }
-
-  showAdd(): void {
-    this.isAdd = !this.isAdd;
+  updateGoods(goods: Goods): void {
+    this.goodsService.updateGoods(goods.id || 0, goods)
+      .subscribe(() => this.getAllGoods());
   }
 
   onRowEditInit(goods: Goods): void {
@@ -94,7 +89,6 @@ export class GoodsComponent implements OnInit {
   }
 
   goodsButtonBlock(): void{
-    // @ts-ignore
     document.getElementById('addGoodsButton').style.display = 'block';
   }
 

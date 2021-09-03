@@ -9,7 +9,7 @@ public class GoodsOrderUtil {
     public static GoodsOrder getGoodsOrder(){
         GoodsOrder goodsOrder = new GoodsOrder();
         goodsOrder.setId(1L);
-        goodsOrder.setClientName("client");
+        goodsOrder.setClient("client");
         goodsOrder.setDate(null);
         goodsOrder.setAddress(null);
         goodsOrder.setOrderLines(Collections.emptyList());
