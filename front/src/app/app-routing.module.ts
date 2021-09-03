@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'goods', component: GoodsComponent },
   { path: 'order', component: GoodsOrderComponent},
   { path: 'line', component: OrderLineComponent },
-  { path: 'line/:id', component: OrderLineComponent },
+  { path: 'line/order/:id', component: OrderLineComponent },
   { path: '', redirectTo: 'goods', pathMatch: 'full' },
 ];
 

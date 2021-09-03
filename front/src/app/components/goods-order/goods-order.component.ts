@@ -96,6 +96,6 @@ export class GoodsOrderComponent implements OnInit {
   }
 
   showGoods(id: number): void {
-    this.router.navigate(['/line', id]);
+    this.router.navigate(['/line/order', id]);
   }
 }

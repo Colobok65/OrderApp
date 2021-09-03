@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Goods} from "../../models/Goods";
-import {OrderLine} from "../../models/OrderLine";
+import {OrderLine} from '../../models/OrderLine';
 
 const LINE_API = 'http://localhost:9000/order_app/line';
 
