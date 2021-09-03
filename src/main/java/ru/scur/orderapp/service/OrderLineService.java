@@ -6,6 +6,8 @@ import ru.scur.orderapp.dao.GoodsDAO;
 import ru.scur.orderapp.dao.GoodsOrderDAO;
 import ru.scur.orderapp.dao.OrderLineDAO;
 import ru.scur.orderapp.dto.OrderLineDTO;
+import ru.scur.orderapp.exception.ThereIsNoSuchGoodsException;
+import ru.scur.orderapp.exception.ThereIsNoSuchGoodsOrderException;
 import ru.scur.orderapp.exception.ThereIsNoSuchOrderLineException;
 import ru.scur.orderapp.model.OrderLine;
 
@@ -53,17 +55,13 @@ public class OrderLineService {
     public OrderLineDTO editOrderLine(Long id, OrderLineDTO orderLineDTO) {
         OrderLine orderLine = getOrderLine(id);
         if (orderLine == null) throw new ThereIsNoSuchOrderLineException();
-        orderLine.setGoodsOrder(orderLine.getGoodsOrder());
-        orderLine.setGoods(orderLine.getGoods());
-        orderLine.setCountNumber(orderLine.getCountNumber());
+        orderLine.setGoodsOrder(goodsOrderDAO.findById(orderLineDTO.getOrderId()).orElseThrow(ThereIsNoSuchGoodsOrderException::new));
+        orderLine.setGoods(goodsDAO.findById(orderLineDTO.getGoodsId()).orElseThrow(ThereIsNoSuchGoodsException::new));
+        orderLine.setCountNumber(orderLineDTO.getCountNumber());
         return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
     }
 
     public List<OrderLineDTO> getLineByOrderId(Long orderId) {
         return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoodsOrderId(orderId));
-    }
-
-    public Float findGoodsPriceByGoodsId(Long goodsId) {
-        return orderLineDAO.findGoodsPrice(goodsId);
     }
 }

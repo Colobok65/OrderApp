@@ -11,4 +11,5 @@ public class OrderLineDTO {
     private Long goodsId;
     private String goodsName;
     private Long countNumber;
+    private Float price;
 }

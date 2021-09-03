@@ -33,10 +33,10 @@
           </p-cellEditor>
         </td>
         <td>
-              {{goodsPrice}}
+          {{line.price}}
         </td>
         <td>
-
+          {{line.price * line.countNumber}}
         </td>
         <td style="text-align:center">
           <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(line)" class="p-button-rounded p-button-text"></button>
@@ -50,6 +50,13 @@
       </tr>
     </ng-template>
   </p-table>
+  <div style="display: flex; color: cornflowerblue">
+    <h3 style="margin-right: 1rem">{{'Количество товаров: ' + lines.length}}</h3> <h3>Сумма заказа: {{totalSum | currency: 'RUB '}}</h3>
+  </div>
+</div>
+
+<div>
+
 </div>
 
 <div id="addGoodsButton" style="margin-top: 1rem">

@@ -45,10 +45,4 @@ public class OrderLineController {
     public List<OrderLineDTO> findAllLinesByOrderId(@PathVariable("order_id") Long goodsOrderId) {
         return orderLineService.getLineByOrderId(goodsOrderId);
     }
-
-    @GetMapping("/goods/{goods_id}")
-    public Float getGoodsPriceByGoodsId(@PathVariable("goods_id") Long goodsId) {
-        return orderLineService.findGoodsPriceByGoodsId(goodsId);
-    }
-
 }

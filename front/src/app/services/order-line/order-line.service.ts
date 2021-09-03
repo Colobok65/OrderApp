@@ -30,8 +30,4 @@ export class OrderLineService {
   updateLineById(id: number, line: OrderLine): Observable<any> {
     return this.http.put(LINE_API + '/' + id, line);
   }
-
-  getGoodsPriceFromGoodsId(id: number): Observable<any> {
-    return this.http.get(LINE_API + '/goods/' + id);
-  }
 }

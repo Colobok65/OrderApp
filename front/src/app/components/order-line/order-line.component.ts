@@ -11,11 +11,11 @@ import {ActivatedRoute} from '@angular/router';
 export class OrderLineComponent implements OnInit {
 
   orderId = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
-  goodsPrice = 0;
   isDataLoaded = false;
   lines: OrderLine[] = [];
-  line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: ''};
+  line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: '', price: 0};
   clonedLines: { [s: string]: OrderLine; } = {};
+  totalSum = 0;
 
   constructor(private orderLineService: OrderLineService,
               private activatedRoute: ActivatedRoute) { }
@@ -24,15 +24,11 @@ export class OrderLineComponent implements OnInit {
     this.getLinesForCurrentOrder();
   }
 
-  getGoodsPrice(id: number): void {
-    this.orderLineService.getGoodsPriceFromGoodsId(id)
-      .subscribe(data => this.goodsPrice = data);
-  }
-
   getLinesForCurrentOrder(): void {
     this.orderLineService.getLinesByOrderId(this.orderId)
       .subscribe(data => {
         this.lines = data;
+        this.totalSum = data.reduce((total: any, a: { price: any; countNumber: any}) => total + a.price * a.countNumber, 0);
         this.isDataLoaded = true;
       });
   }

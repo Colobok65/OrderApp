@@ -10,6 +10,8 @@ import {Goods} from '../../models/Goods';
 export class GoodsComponent implements OnInit {
 
   isDataLoaded = false;
+  isPushedButton = false;
+  isActivatedForm = false;
   goodses: Goods[] = [];
   goods: Goods = {id: 0, name: '', price: 0};
   clonedGoods: { [s: string]: Goods; } = {};
@@ -35,8 +37,8 @@ export class GoodsComponent implements OnInit {
       this.goods.name = '';
       this.goods.price = 0;
       this.getAllGoods();
-      this.goodsFormNone();
-      this.goodsButtonBlock();
+      this.isPushedButton = false;
+      this.isActivatedForm = false;
     });
   }
 
@@ -69,31 +71,13 @@ export class GoodsComponent implements OnInit {
   }
 
   addNewGoods(): void {
-    this.goodsFormBlock();
-    this.goodsButtonNone();
+    this.isPushedButton = true;
+    this.isActivatedForm = true;
   }
 
   cancel(): void {
-    this.goodsFormNone();
-    this.goodsButtonBlock();
+    this.isPushedButton = false;
+    this.isActivatedForm = false;
   }
 
-  goodsFormBlock(): void {
-    // @ts-ignore
-    document.getElementById('addGoodsForm').style.display = 'block';
-  }
-
-  goodsFormNone(): void{
-    // @ts-ignore
-    document.getElementById('addGoodsForm').style.display = 'none';
-  }
-
-  goodsButtonBlock(): void{
-    document.getElementById('addGoodsButton').style.display = 'block';
-  }
-
-  goodsButtonNone(): void {
-    // @ts-ignore
-    document.getElementById('addGoodsButton').style.display = 'none';
-  }
 }

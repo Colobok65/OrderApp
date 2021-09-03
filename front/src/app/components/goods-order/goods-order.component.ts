@@ -11,6 +11,8 @@ import {Router} from '@angular/router';
 export class GoodsOrderComponent implements OnInit {
 
   isDataLoaded = false;
+  isPushedButton = false;
+  isActivatedForm = false;
   orders: GoodsOrder[] = [];
   order: GoodsOrder = {id: 0, address: '', date: '', client: '', lines: []};
   clonedOrders: { [s: string]: GoodsOrder; } = {};
@@ -34,8 +36,8 @@ export class GoodsOrderComponent implements OnInit {
       this.order.address = '';
       this.order.client = '';
       this.getAllOrders();
-      this.orderFormNone();
-      this.orderButtonBlock();
+      this.isPushedButton = false;
+      this.isActivatedForm = false;
     });
   }
 
@@ -66,36 +68,17 @@ export class GoodsOrderComponent implements OnInit {
   }
 
   addNewOrder(): void {
-    this.orderFormBlock();
-    this.orderButtonNone();
+    this.isPushedButton = true;
+    this.isActivatedForm = true;
   }
 
   cancel(): void {
-    this.orderFormNone();
-    this.orderButtonBlock();
-  }
-
-  orderFormBlock(): void {
-    // @ts-ignore
-    document.getElementById('addOrderForm').style.display = 'block';
-  }
-
-  orderFormNone(): void{
-    // @ts-ignore
-    document.getElementById('addOrderForm').style.display = 'none';
-  }
-
-  orderButtonBlock(): void{
-    // @ts-ignore
-    document.getElementById('addOrderButton').style.display = 'block';
-  }
-
-  orderButtonNone(): void {
-    // @ts-ignore
-    document.getElementById('addOrderButton').style.display = 'none';
+    this.isPushedButton = false;
+    this.isActivatedForm = false;
   }
 
   showGoods(id: number): void {
     this.router.navigate(['/line/order', id]);
   }
+
 }
