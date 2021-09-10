@@ -1,0 +1,52 @@
+<div *ngIf="isDataLoaded">
+  <p-table [value]="goodses" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">Товар <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="price">Цена(1ед) <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="countNumber">Колличество <p-sortIcon field="countNumber"></p-sortIcon></th>
+        <th>Цена(всего) </th>
+        <th style="text-align: center">Добавить </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-god>
+      <tr>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="god.name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{god.name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="god.price">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{god.price | currency: 'RUB '}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="god.countNumber">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{god.countNumber}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+        </td>
+        <td style="text-align: center">
+          <button pButton icon="pi pi-plus" (click)="addGoods(god)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

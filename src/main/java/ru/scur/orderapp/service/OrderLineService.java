@@ -9,9 +9,11 @@ import ru.scur.orderapp.dto.OrderLineDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsException;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsOrderException;
 import ru.scur.orderapp.exception.ThereIsNoSuchOrderLineException;
+import ru.scur.orderapp.exception.ThisProductIsAlreadyInTheOrderLineException;
 import ru.scur.orderapp.model.OrderLine;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderLineService {
@@ -29,6 +31,9 @@ public class OrderLineService {
     }
 
     public OrderLineDTO createOrderLine(OrderLineDTO orderLineDTO){
+        if(ifGoodsContainsInThisLine(orderLineDTO.getOrderId(), orderLineDTO.getGoodsId())){
+            throw new ThisProductIsAlreadyInTheOrderLineException("This product is already in the products list, you can change quantity of goods");
+        }
         OrderLine orderLine = new OrderLine();
         orderLine.setGoodsOrder(goodsOrderDAO.getOne(orderLineDTO.getOrderId()));
         orderLine.setGoods(goodsDAO.getOne(orderLineDTO.getGoodsId()));
@@ -63,5 +68,14 @@ public class OrderLineService {
 
     public List<OrderLineDTO> getLineByOrderId(Long orderId) {
         return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoodsOrderId(orderId));
+    }
+
+    public boolean ifGoodsContainsInThisLine(Long orderId, Long goodsId) {
+        Optional<OrderLine> line = orderLineDAO.findOrderLineByGoodsOrderId(orderId)
+                .stream()
+                .filter(a -> a.getGoods().getId().equals(goodsId))
+                .findAny();
+
+        return line.isPresent();
     }
 }

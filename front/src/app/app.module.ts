@@ -12,6 +12,7 @@ import { OrderLineComponent } from './components/order-line/order-line.component
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import {RippleModule} from 'primeng/ripple';
+import { AddGoodsComponent } from './components/add-goods/add-goods.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {RippleModule} from 'primeng/ripple';
     GoodsOrderComponent,
     GoodsComponent,
     OrderLineComponent,
+    AddGoodsComponent,
   ],
     imports: [
         BrowserModule,

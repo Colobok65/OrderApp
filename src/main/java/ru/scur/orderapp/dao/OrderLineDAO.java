@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderLineDAO extends JpaRepository<OrderLine, Long> {
     List<OrderLine> findOrderLineByGoodsOrderId(Long goodsOrderId);
+
 }

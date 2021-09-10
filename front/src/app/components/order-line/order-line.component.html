@@ -9,9 +9,9 @@
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="goodsName">Товар <p-sortIcon field="goodsName"></p-sortIcon></th>
+        <th pSortableColumn="price">Цена(1ед) <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="countNumber">Колличество <p-sortIcon field="countNumber"></p-sortIcon></th>
-        <th pSortableColumn="goodsName">Цена(1ед) <p-sortIcon field="goodsName"></p-sortIcon></th>
-        <th pSortableColumn="goodsName">Цена(всего) <p-sortIcon field="goodsName"></p-sortIcon></th>
+        <th>Цена(всего)</th>
         <th style="width:8rem; text-align: center">Edit</th>
         <th style="width:8rem; text-align: center">Delete</th>
       </tr>
@@ -23,9 +23,12 @@
           {{line.goodsName}}
         </td>
         <td>
+          {{line.price | currency: 'RUB '}}
+        </td>
+        <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="line.countNumber">
+              <input id="countNumber" pInputText type="text" [(ngModel)]="line.countNumber">
             </ng-template>
             <ng-template pTemplate="output">
               {{line.countNumber}}
@@ -33,10 +36,7 @@
           </p-cellEditor>
         </td>
         <td>
-          {{line.price}}
-        </td>
-        <td>
-          {{line.price * line.countNumber}}
+          {{line.price * line.countNumber | currency: 'RUB '}}
         </td>
         <td style="text-align:center">
           <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(line)" class="p-button-rounded p-button-text"></button>
@@ -55,10 +55,10 @@
   </div>
 </div>
 
-<div>
-
+<div *ngIf="isPanelActivated">
+  <router-outlet></router-outlet>
 </div>
 
-<div id="addGoodsButton" style="margin-top: 1rem">
-  <button pButton label="Add goods" icon="pi pi-plus"></button>
+<div *ngIf="!isButtonPushed" style="margin-top: 1rem">
+  <button pButton label="Add goods" icon="pi pi-plus" routerLink="line/order/:id/add" (click)="showGoodsPanel()"></button>
 </div>

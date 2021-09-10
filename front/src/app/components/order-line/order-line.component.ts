@@ -12,6 +12,8 @@ export class OrderLineComponent implements OnInit {
 
   orderId = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
   isDataLoaded = false;
+  isButtonPushed = false;
+  isPanelActivated = false;
   lines: OrderLine[] = [];
   line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: '', price: 0};
   clonedLines: { [s: string]: OrderLine; } = {};
@@ -57,5 +59,10 @@ export class OrderLineComponent implements OnInit {
   onRowEditCancel(line: OrderLine, index: number): void {
     this.lines[index] = this.clonedLines[line.id || 0];
     delete this.clonedLines[line.id || 0];
+  }
+
+  showGoodsPanel(): void {
+    this.isPanelActivated = true;
+    this.isButtonPushed = true;
   }
 }

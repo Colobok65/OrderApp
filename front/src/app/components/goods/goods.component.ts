@@ -79,5 +79,4 @@ export class GoodsComponent implements OnInit {
     this.isPushedButton = false;
     this.isActivatedForm = false;
   }
-
 }

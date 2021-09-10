@@ -30,4 +30,8 @@ export class OrderLineService {
   updateLineById(id: number, line: OrderLine): Observable<any> {
     return this.http.put(LINE_API + '/' + id, line);
   }
+
+  createNewLine(line: OrderLine): Observable<any> {
+    return this.http.post(LINE_API, line);
+  }
 }
