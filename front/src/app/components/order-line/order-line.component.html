@@ -60,5 +60,5 @@
 </div>
 
 <div *ngIf="!isButtonPushed" style="margin-top: 1rem">
-  <button pButton label="Add goods" icon="pi pi-plus" routerLink="line/order/:id/add" (click)="showGoodsPanel()"></button>
+  <button pButton label="Add goods" icon="pi pi-plus" routerLink="/line/order/{{orderId}}/add" (click)="showGoodsPanel()"></button>
 </div>

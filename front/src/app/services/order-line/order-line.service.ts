@@ -23,6 +23,10 @@ export class OrderLineService {
     return this.http.get(LINE_API + '/order/' + id);
   }
 
+  getLineByGoodsId(id: number): Observable<any> {
+    return this.http.get(LINE_API + '/goods/' + id);
+  }
+
   deleteLineById(id: number): Observable<any> {
     return this.http.delete(LINE_API + '/' + id);
   }
@@ -34,4 +38,5 @@ export class OrderLineService {
   createNewLine(line: OrderLine): Observable<any> {
     return this.http.post(LINE_API, line);
   }
+
 }

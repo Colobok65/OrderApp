@@ -3,7 +3,7 @@ import {OrderLine} from '../../models/OrderLine';
 import {OrderLineService} from '../../services/order-line/order-line.service';
 import {GoodsService} from '../../services/goods/goods.service';
 import {Goods} from '../../models/Goods';
-import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-goods',
@@ -12,37 +12,73 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AddGoodsComponent implements OnInit {
 
-  orderId = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
+  // @ts-ignore
+  orderId = +(this.router.url.match('\\d')[0]);
   isDataLoaded = false;
+  line: OrderLine = {orderId: 0, goodsId: 0, price: 0, goodsName: '', countNumber: 0};
   lines: OrderLine[] = [];
-  goodses: Goods[] = [];
-  totalPrice = 0;
+  linesFromCurrentOrder: OrderLine[] = [];
+  products: Goods[] = [];
+  currentGoodsId: number[] = [];
 
   constructor(private orderLineService: OrderLineService,
               private goodsService: GoodsService,
-              private activatedRoute: ActivatedRoute) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.getAllGoods();
-  }
-
-  addGoods(line: OrderLine): void {
-    this.orderLineService
-      .createNewLine({
-        countNumber: line.countNumber,
-        goodsId: line.id || 0,
-        orderId: this.orderId,
-        goodsName: name,
-        price: line.price })
-      .subscribe(data => this.lines = data);
+    this.getLinesByCurrentOrder();
   }
 
   getAllGoods(): void {
     this.goodsService.getAllGoods()
       .subscribe(data => {
-        this.goodses = data;
+        this.products = data;
+        this.initLines();
         this.isDataLoaded = true;
       });
   }
 
+  private initLines(): void {
+    this.lines = this.products.map(g => ({
+      orderId: this.orderId,
+      goodsId: g.id || 0,
+      countNumber: 0,
+      goodsName: g.name,
+      price: g.price
+    }));
+  }
+
+  addLines(): void {
+    this.lines
+      .filter(line => !!line.countNumber
+      && !this.linesFromCurrentOrder.includes(line))
+      .forEach((line: any) => {
+        if (!this.lines.includes(this.getLineByGoodsId(line.goodsId))) {
+          this.orderLineService.createNewLine({
+            countNumber: line.countNumber,
+            goodsId: line.goodsId,
+            orderId: this.orderId,
+            goodsName: line.goodsName,
+            price: line.price
+          }).subscribe(data => this.lines = data);
+        } else {console.log('Этот товар есть в заказе'); }
+      });
+    console.log(this.linesFromCurrentOrder);
+    console.log(this.currentGoodsId);
+  }
+
+  getLineByGoodsId(id: number): any {
+    return this.orderLineService.getLineByGoodsId(id)
+      .subscribe(data => this.line = data);
+  }
+
+  getLinesByCurrentOrder(): void {
+    this.orderLineService.getLinesByOrderId(this.orderId)
+      .subscribe(data => {
+        this.linesFromCurrentOrder = data;
+        this.currentGoodsId.push(data.goodsId);
+      });
+  }
 }

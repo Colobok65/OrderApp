@@ -1,52 +1,54 @@
 <div *ngIf="isDataLoaded">
-  <p-table [value]="goodses" dataKey="id">
+  <p-table [value]="lines" dataKey="id">
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="name">Товар <p-sortIcon field="name"></p-sortIcon></th>
         <th pSortableColumn="price">Цена(1ед) <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="countNumber">Колличество <p-sortIcon field="countNumber"></p-sortIcon></th>
         <th>Цена(всего) </th>
-        <th style="text-align: center">Добавить </th>
+        <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-god>
+    <ng-template pTemplate="body" let-line>
       <tr>
         <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="god.name">
+              <input pInputText type="text" [(ngModel)]="line.goodsName">
             </ng-template>
             <ng-template pTemplate="output">
-              {{god.name}}
+              {{line.goodsName}}
             </ng-template>
           </p-cellEditor>
         </td>
         <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="god.price">
+              <input pInputText type="text" [(ngModel)]="line.price">
             </ng-template>
             <ng-template pTemplate="output">
-              {{god.price | currency: 'RUB '}}
+              {{line.price | currency: 'RUB '}}
             </ng-template>
           </p-cellEditor>
         </td>
         <td pEditableColumn>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="god.countNumber">
+              <input pInputText type="text" [(ngModel)]="line.countNumber">
             </ng-template>
             <ng-template pTemplate="output">
-              {{god.countNumber}}
+              {{line.countNumber}}
             </ng-template>
           </p-cellEditor>
         </td>
         <td>
+          {{line.price * line.countNumber}}
         </td>
-        <td style="text-align: center">
-          <button pButton icon="pi pi-plus" (click)="addGoods(god)"></button>
-        </td>
+        <td></td>
       </tr>
     </ng-template>
   </p-table>
+  <div style="margin-top: 1rem">
+    <button pButton label="Добавить товары" routerLink="/line/order/{{orderId}}"  (click)="addLines()"></button>
+  </div>
 </div>
