@@ -1,20 +1,21 @@
 <div>
   <h1 style="text-align: center;
+      margin-top: 0;
       border-bottom: 3px solid cornflowerblue;
-      color: cornflowerblue">Orders</h1>
+      color: cornflowerblue">Заказы</h1>
 </div>
 
 <div *ngIf="isDataLoaded">
   <p-table [value]="orders" dataKey="id" editMode="row">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="id">№ заказа <p-sortIcon field="id"></p-sortIcon></th>
-        <th pSortableColumn="client">Client <p-sortIcon field="client"></p-sortIcon></th>
-        <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>
-        <th pSortableColumn="date">Data of create <p-sortIcon field="date"></p-sortIcon></th>
+        <th pSortableColumn="id">№ Заказа <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="client">Клиент <p-sortIcon field="client"></p-sortIcon></th>
+        <th pSortableColumn="address">Адрес <p-sortIcon field="address"></p-sortIcon></th>
+        <th pSortableColumn="date">Дата создания <p-sortIcon field="date"></p-sortIcon></th>
         <th style="width:8rem"></th>
-        <th style="width:8rem; text-align: center">Edit</th>
-        <th style="width:8rem; text-align: center">Delete</th>
+        <th style="width:8rem; text-align: center">Редактировать</th>
+        <th style="width:8rem; text-align: center">Удалить</th>
       </tr>
     </ng-template>
 
@@ -45,7 +46,7 @@
           {{ord.date | date : 'dd/MM/yyyy HH:mm:ss'}}
         </td>
         <td>
-          <button pButton icon="pi pi-folder-open" label="goods" (click)="showGoods(ord.id)"></button>
+          <button pButton icon="pi pi-shopping-cart" label="Товары" (click)="showGoods(ord.id)"></button>
         </td>
         <td style="text-align:center">
           <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(ord)" class="p-button-rounded p-button-text"></button>
@@ -78,6 +79,6 @@
 </div>
 
 <div *ngIf="!isPushedButton" style="margin-top: 1rem">
-  <button pButton label="Add new order" icon="pi pi-plus" (click)="addNewOrder()"></button>
+  <button pButton label="Добавить новый заказ" icon="pi pi-plus" (click)="addNewOrder()"></button>
 </div>
 

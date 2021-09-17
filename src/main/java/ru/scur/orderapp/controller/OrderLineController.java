@@ -26,11 +26,6 @@ public class OrderLineController {
         return orderLineService.getAllOrderLines();
     }
 
-    @GetMapping("/goods/{goods_id}")
-    public List<OrderLineDTO> getLineByGoodsId(@PathVariable("goods_id") Long goodsId) {
-        return orderLineService.getLineByGoodsId(goodsId);
-    }
-
     @GetMapping("/{id}")
     public OrderLineDTO getOrderLineById(@PathVariable("id") Long id){
         return orderLineService.getOrderLineById(id);

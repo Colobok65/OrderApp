@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -8,12 +9,16 @@ import {MenuItem} from 'primeng/api';
 })
 export class AppComponent implements OnInit{
   title = 'OrderApp';
+
   items: MenuItem[] = [];
 
+  constructor(private primengConfig: PrimeNGConfig) {}
+
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
     this.items = [
-      {label: 'Order', routerLink: ['order']},
-      {label: 'Goods', routerLink: ['goods']}
-      ];
+      {label: 'Заказы', icon: 'pi pi-folder-open', routerLink: ['order']},
+      {label: 'Товары', icon: 'pi pi-folder-open', routerLink: ['goods']}
+    ];
   }
 }

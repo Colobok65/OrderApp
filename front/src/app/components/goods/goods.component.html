@@ -1,17 +1,18 @@
 <div>
   <h1 style="text-align: center;
+      margin-top: 0;
       border-bottom: 3px solid cornflowerblue;
-      color: cornflowerblue">Goods</h1>
+      color: cornflowerblue">Товары</h1>
 </div>
 
 <div *ngIf="isDataLoaded">
   <p-table [value]="goodses" dataKey="id" editMode="row">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-        <th style="width:8rem; text-align: center">Edit</th>
-        <th style="width:8rem; text-align: center">Delete</th>
+        <th pSortableColumn="name">Название <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="price">Цена <p-sortIcon field="price"></p-sortIcon></th>
+        <th style="width:8rem; text-align: center">Редактировать</th>
+        <th style="width:8rem; text-align: center">Удалить</th>
       </tr>
     </ng-template>
 
@@ -61,14 +62,14 @@
       <label for="price" class="p-sr-only">Price</label>
       <input id="price" type="text" pInputText [(ngModel)]="goods.price">
     </div>
-    <button pButton type="button" icon="pi pi-check" label="Create"
+    <button pButton type="button" icon="pi pi-check" label="Создать"
             (click)="addGoods()" style="margin-right: 1rem"></button>
-    <button pButton type="button" label="Cancel" icon="pi pi-sign-in" (click)="cancel()"></button>
+    <button pButton type="button" label="Отменить" icon="pi pi-sign-in" (click)="cancel()"></button>
   </div>
 </div>
 
 <div *ngIf="!isPushedButton" style="margin-top: 1rem">
-  <button pButton label="Add new goods" icon="pi pi-plus" (click)="addNewGoods()"></button>
+  <button pButton label="Добавить новые товары" icon="pi pi-plus" (click)="addNewGoods()"></button>
 </div>
 
 

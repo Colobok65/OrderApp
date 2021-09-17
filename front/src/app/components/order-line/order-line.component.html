@@ -1,5 +1,6 @@
 <div>
   <h1 style="text-align: center;
+      margin-top: 0;
       border-bottom: 3px solid cornflowerblue;
       color: cornflowerblue">Заказ №{{orderId}}</h1>
 </div>
@@ -12,8 +13,8 @@
         <th pSortableColumn="price">Цена(1ед) <p-sortIcon field="price"></p-sortIcon></th>
         <th pSortableColumn="countNumber">Колличество <p-sortIcon field="countNumber"></p-sortIcon></th>
         <th>Цена(всего)</th>
-        <th style="width:8rem; text-align: center">Edit</th>
-        <th style="width:8rem; text-align: center">Delete</th>
+        <th style="width:8rem; text-align: center">Редактировать</th>
+        <th style="width:8rem; text-align: center">Удалить</th>
       </tr>
     </ng-template>
 
@@ -60,5 +61,5 @@
 </div>
 
 <div *ngIf="!isButtonPushed" style="margin-top: 1rem">
-  <button pButton label="Add goods" icon="pi pi-plus" routerLink="/line/order/{{orderId}}/add" (click)="showGoodsPanel()"></button>
+  <button pButton label="Добавить товары" icon="pi pi-plus" routerLink="/line/order/{{orderId}}/add" (click)="showGoodsPanel()"></button>
 </div>

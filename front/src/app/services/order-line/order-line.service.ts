@@ -11,20 +11,8 @@ const LINE_API = 'http://localhost:9000/order_app/line';
 export class OrderLineService {
   constructor(private http: HttpClient) { }
 
-  getAllLines(): Observable<any> {
-    return this.http.get(LINE_API);
-  }
-
-  getLineById(id: number): Observable<any> {
-    return this.http.get(LINE_API + '/' + id);
-  }
-
   getLinesByOrderId(id: number): Observable<any> {
     return this.http.get(LINE_API + '/order/' + id);
-  }
-
-  getLineByGoodsId(id: number): Observable<any> {
-    return this.http.get(LINE_API + '/goods/' + id);
   }
 
   deleteLineById(id: number): Observable<any> {

@@ -28,8 +28,5 @@ export class GoodsService {
     return this.http.put(GOODS_API + '/' + id, goods);
   }
 
-  getGoodsById(id: number): Observable<any> {
-    return this.http.get(GOODS_API + '/' + id);
-  }
 }
 

@@ -14,6 +14,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {RippleModule} from 'primeng/ripple';
 import {AddGoodsComponent} from './components/add-goods/add-goods.component';
 import {MenuModule} from 'primeng/menu';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MenubarModule} from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {MenuModule} from 'primeng/menu';
     InputTextModule,
     RippleModule,
     MenuModule,
+    BrowserAnimationsModule,
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
