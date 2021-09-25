@@ -21,38 +21,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = getJwtFromRequest(request);
+            String jwt = getJWTFromRequest(httpServletRequest);
             if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
                 Long userId = jwtTokenProvider.getUserIdFromToken(jwt);
-                User userSDetails = customUserDetailsService.LoadUserById(userId);
+                User userDetails = customUserDetailsService.LoadUserById(userId);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                  userSDetails, null, Collections.emptyList()
+                        userDetails, null, Collections.emptyList()
                 );
 
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
-    private String getJwtFromRequest(HttpServletRequest request) {
+    private String getJWTFromRequest(HttpServletRequest request) {
         String bearToken = request.getHeader(SecurityConstants.HEADER_STRING);
-        if (StringUtils.hasText(bearToken) &&
-                bearToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+        if(StringUtils.hasText(bearToken) && bearToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             return bearToken.split(" ")[1];
         }
         return null;

@@ -51,4 +51,8 @@ public class GoodsOrderService {
     public List<GoodsOrderDTO> getAllGoodsOrders() {
         return goodsOrderConverter.toOrderDTOList(goodsOrderRepository.findAll());
     }
+
+    public List<GoodsOrderDTO> getAllGoodsOrdersByUserId(Long userId) {
+        return goodsOrderConverter.toOrderDTOList(goodsOrderRepository.findGoodsOrdersByUserId(userId));
+    }
 }

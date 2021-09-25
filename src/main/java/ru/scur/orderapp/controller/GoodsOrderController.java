@@ -22,9 +22,14 @@ public class GoodsOrderController {
         return goodsOrderService.createGoodsOrder(goodsOrderDTO);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<GoodsOrderDTO> getAllGoodsOrders(){
         return goodsOrderService.getAllGoodsOrders();
+    }
+
+    @GetMapping("/all/{user_id}")
+    public List<GoodsOrderDTO> getAllOrdersByUserId(@PathVariable("user_id") Long userId) {
+        return goodsOrderService.getAllGoodsOrdersByUserId(userId);
     }
 
     @GetMapping("/{id}")

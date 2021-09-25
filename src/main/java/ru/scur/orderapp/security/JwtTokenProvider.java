@@ -37,24 +37,23 @@ public class JwtTokenProvider {
         try {
             Jwts.parser()
                     .setSigningKey(SecurityConstants.SECRET)
-                    .parseClaimsJwt(token);
+                    .parseClaimsJws(token);
             return true;
         }catch (SignatureException |
                 MalformedJwtException |
                 ExpiredJwtException |
                 UnsupportedJwtException |
-                IllegalArgumentException ex){
+                IllegalArgumentException ex) {
             ex.getMessage();
             return false;
         }
     }
 
-    public Long getUserIdFromToken (String token) {
+    public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(SecurityConstants.SECRET)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
-
         String id = (String) claims.get("id");
         return Long.parseLong(id);
     }
