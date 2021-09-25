@@ -1,22 +1,22 @@
 package ru.scur.orderapp.service;
 
 import org.springframework.stereotype.Service;
-import ru.scur.orderapp.dao.GoodsDAO;
 import ru.scur.orderapp.converter.GoodsConverter;
 import ru.scur.orderapp.dto.GoodsDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsException;
 import ru.scur.orderapp.model.Goods;
+import ru.scur.orderapp.repository.GoodsRepository;
 
 import java.util.List;
 
 @Service
 public class GoodsService {
 
-    private final GoodsDAO goodsDAO;
+    private final GoodsRepository goodsRepository;
     private final GoodsConverter goodsConverter;
 
-    public GoodsService(GoodsDAO goodsDAO, GoodsConverter goodsConverter) {
-        this.goodsDAO = goodsDAO;
+    public GoodsService(GoodsRepository goodsRepository, GoodsConverter goodsConverter) {
+        this.goodsRepository = goodsRepository;
         this.goodsConverter = goodsConverter;
     }
 
@@ -25,11 +25,11 @@ public class GoodsService {
         Goods goods = new Goods();
         goods.setName(goodsDTO.getName());
         goods.setPrice(goodsDTO.getPrice());
-        return goodsConverter.toGoodsDTO(goodsDAO.save(goods));
+        return goodsConverter.toGoodsDTO(goodsRepository.save(goods));
     }
 
     public Goods getGoods(Long id){
-        return goodsDAO.findById(id).orElseThrow(ThereIsNoSuchGoodsException::new);
+        return goodsRepository.findById(id).orElseThrow(ThereIsNoSuchGoodsException::new);
     }
 
     public GoodsDTO getGoodsById(Long id){
@@ -42,16 +42,16 @@ public class GoodsService {
         goods.setId(goodsDTO.getId());
         goods.setName(goodsDTO.getName());
         goods.setPrice(goodsDTO.getPrice());
-        return goodsConverter.toGoodsDTO(goodsDAO.save(goods));
+        return goodsConverter.toGoodsDTO(goodsRepository.save(goods));
     }
 
     public void deleteGoodsById(Long id) {
         Goods goods = getGoods(id);
         if (goods == null) throw new ThereIsNoSuchGoodsException();
-        goodsDAO.deleteById(id);
+        goodsRepository.deleteById(id);
     }
 
     public List<GoodsDTO> getAllGoods() {
-        return goodsConverter.toGoodsDTOList(goodsDAO.findAll());
+        return goodsConverter.toGoodsDTOList(goodsRepository.findAll());
     }
 }

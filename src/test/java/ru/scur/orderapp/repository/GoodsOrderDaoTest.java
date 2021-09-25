@@ -1,4 +1,4 @@
-package ru.scur.orderapp.dao;
+package ru.scur.orderapp.repository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,25 +15,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class GoodsOrderDaoTest {
     @Autowired
-    private GoodsOrderDAO goodsOrderDAO;
+    private GoodsOrderRepository goodsOrderRepository;
 
     @BeforeEach
     public void setUp() {
-        goodsOrderDAO.save(new GoodsOrder(null, "client", new Date(), "address", null));
+        goodsOrderRepository.save(new GoodsOrder(null, "client", new Date(), "address", null));
     }
 
     @AfterEach
     public void tearDown() {
-        goodsOrderDAO.deleteAll();
+        goodsOrderRepository.deleteAll();
     }
 
     @Test
     public void shouldFindGoodsOrderById() {
-        GoodsOrder expected = goodsOrderDAO.save(
+        GoodsOrder expected = goodsOrderRepository.save(
                 new GoodsOrder(null, "client 1", new Date(), "address 1", null)
         );
 
-        GoodsOrder actual = goodsOrderDAO.findById(expected.getId()).get();
+        GoodsOrder actual = goodsOrderRepository.findById(expected.getId()).get();
 
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getClient(), actual.getClient());
@@ -43,37 +43,37 @@ public class GoodsOrderDaoTest {
 
     @Test
     public void shouldDeleteGoodsOrderById(){
-        GoodsOrder goodsOrder = goodsOrderDAO.save(
+        GoodsOrder goodsOrder = goodsOrderRepository.save(
                 new GoodsOrder(null, "client 1", new Date(), "address 1", null)
         );
 
-        goodsOrderDAO.deleteById(goodsOrder.getId());
+        goodsOrderRepository.deleteById(goodsOrder.getId());
 
-        assertEquals(1, goodsOrderDAO.findAll().size());
+        assertEquals(1, goodsOrderRepository.findAll().size());
     }
 
     @Test
     public void shouldFindAllGoodsOrder(){
-        goodsOrderDAO.save(
+        goodsOrderRepository.save(
                 new GoodsOrder(null, "client 1", new Date(), "address 1", null)
         );
 
-        assertEquals(2, goodsOrderDAO.findAll().size());
+        assertEquals(2, goodsOrderRepository.findAll().size());
     }
 
     @Test
     public void shouldSaveGoodsOrder(){
-        assertEquals(1, goodsOrderDAO.findAll().size());
+        assertEquals(1, goodsOrderRepository.findAll().size());
     }
 
     @Test
     public void shouldEditGoodsOrder(){
         String client = "client 1";
-        GoodsOrder goodsOrder = goodsOrderDAO.findAll().get(0);
+        GoodsOrder goodsOrder = goodsOrderRepository.findAll().get(0);
         goodsOrder.setClient(client);
-        goodsOrderDAO.save(goodsOrder);
+        goodsOrderRepository.save(goodsOrder);
 
-        GoodsOrder edited = goodsOrderDAO.findById(goodsOrder.getId()).get();
+        GoodsOrder edited = goodsOrderRepository.findById(goodsOrder.getId()).get();
 
         assertEquals(client, edited.getClient());
     }

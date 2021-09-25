@@ -2,46 +2,46 @@ package ru.scur.orderapp.service;
 
 import org.springframework.stereotype.Service;
 import ru.scur.orderapp.converter.OrderLineConverter;
-import ru.scur.orderapp.dao.GoodsDAO;
-import ru.scur.orderapp.dao.GoodsOrderDAO;
-import ru.scur.orderapp.dao.OrderLineDAO;
+import ru.scur.orderapp.repository.GoodsRepository;
+import ru.scur.orderapp.repository.GoodsOrderRepository;
 import ru.scur.orderapp.dto.OrderLineDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsException;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsOrderException;
 import ru.scur.orderapp.exception.ThereIsNoSuchOrderLineException;
 import ru.scur.orderapp.model.OrderLine;
+import ru.scur.orderapp.repository.OrderLineRepository;
 
 import java.util.List;
 
 @Service
 public class OrderLineService {
 
-    private final OrderLineDAO orderLineDAO;
+    private final OrderLineRepository orderLineRepository;
     private final OrderLineConverter orderLineConverter;
-    private final GoodsOrderDAO goodsOrderDAO;
-    private final GoodsDAO goodsDAO;
+    private final GoodsOrderRepository goodsOrderRepository;
+    private final GoodsRepository goodsRepository;
 
-    public OrderLineService(OrderLineDAO orderLineDAO, OrderLineConverter orderLineConverter, GoodsOrderDAO goodsOrderDAO, GoodsDAO goodsDAO) {
-        this.orderLineDAO = orderLineDAO;
+    public OrderLineService(OrderLineRepository orderLineRepository, OrderLineConverter orderLineConverter, GoodsOrderRepository goodsOrderRepository, GoodsRepository goodsRepository) {
+        this.orderLineRepository = orderLineRepository;
         this.orderLineConverter = orderLineConverter;
-        this.goodsOrderDAO = goodsOrderDAO;
-        this.goodsDAO = goodsDAO;
+        this.goodsOrderRepository = goodsOrderRepository;
+        this.goodsRepository = goodsRepository;
     }
 
     public OrderLineDTO createOrderLine(OrderLineDTO orderLineDTO){
         OrderLine orderLine = new OrderLine();
-        orderLine.setGoodsOrder(goodsOrderDAO.getOne(orderLineDTO.getOrderId()));
-        orderLine.setGoods(goodsDAO.getOne(orderLineDTO.getGoodsId()));
+        orderLine.setGoodsOrder(goodsOrderRepository.getOne(orderLineDTO.getOrderId()));
+        orderLine.setGoods(goodsRepository.getOne(orderLineDTO.getGoodsId()));
         orderLine.setCountNumber(orderLineDTO.getCountNumber());
-        return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
+        return orderLineConverter.toOrderLineDTO(orderLineRepository.save(orderLine));
     }
 
     public List<OrderLineDTO> getAllOrderLines() {
-        return orderLineConverter.toOrderLineDTOList(orderLineDAO.findAll());
+        return orderLineConverter.toOrderLineDTOList(orderLineRepository.findAll());
     }
 
     public OrderLine getOrderLine(Long id) {
-        return orderLineDAO.findById(id).orElseThrow(ThereIsNoSuchOrderLineException::new);
+        return orderLineRepository.findById(id).orElseThrow(ThereIsNoSuchOrderLineException::new);
     }
 
     public OrderLineDTO getOrderLineById(Long id) {
@@ -49,23 +49,23 @@ public class OrderLineService {
     }
 
     public void deleteOrderLineById(Long id) {
-        orderLineDAO.deleteById(id);
+        orderLineRepository.deleteById(id);
     }
 
     public OrderLineDTO editOrderLine(Long id, OrderLineDTO orderLineDTO) {
         OrderLine orderLine = getOrderLine(id);
         if (orderLine == null) throw new ThereIsNoSuchOrderLineException();
-        orderLine.setGoodsOrder(goodsOrderDAO.findById(orderLineDTO.getOrderId()).orElseThrow(ThereIsNoSuchGoodsOrderException::new));
-        orderLine.setGoods(goodsDAO.findById(orderLineDTO.getGoodsId()).orElseThrow(ThereIsNoSuchGoodsException::new));
+        orderLine.setGoodsOrder(goodsOrderRepository.findById(orderLineDTO.getOrderId()).orElseThrow(ThereIsNoSuchGoodsOrderException::new));
+        orderLine.setGoods(goodsRepository.findById(orderLineDTO.getGoodsId()).orElseThrow(ThereIsNoSuchGoodsException::new));
         orderLine.setCountNumber(orderLineDTO.getCountNumber());
-        return orderLineConverter.toOrderLineDTO(orderLineDAO.save(orderLine));
+        return orderLineConverter.toOrderLineDTO(orderLineRepository.save(orderLine));
     }
 
     public List<OrderLineDTO> getLineByOrderId(Long orderId) {
-        return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoodsOrderId(orderId));
+        return orderLineConverter.toOrderLineDTOList(orderLineRepository.findOrderLineByGoodsOrderId(orderId));
     }
 
     public List<OrderLineDTO> getLineByGoodsId(Long goodsId) {
-        return orderLineConverter.toOrderLineDTOList(orderLineDAO.findOrderLineByGoods_Id(goodsId));
+        return orderLineConverter.toOrderLineDTOList(orderLineRepository.findOrderLineByGoods_Id(goodsId));
     }
 }

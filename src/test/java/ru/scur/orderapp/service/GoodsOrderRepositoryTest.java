@@ -3,7 +3,7 @@ package ru.scur.orderapp.service;
 import org.junit.jupiter.api.Test;
 import ru.scur.orderapp.converter.GoodsOrderConverter;
 import ru.scur.orderapp.converter.OrderLineConverter;
-import ru.scur.orderapp.dao.GoodsOrderDAO;
+import ru.scur.orderapp.repository.GoodsOrderRepository;
 import ru.scur.orderapp.dto.GoodsOrderDTO;
 import ru.scur.orderapp.util.GoodsOrderDTOUtil;
 import ru.scur.orderapp.util.GoodsOrderUtil;
@@ -16,39 +16,39 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class GoodsOrderServiceTest {
+class GoodsOrderRepositoryTest {
 
-    private final GoodsOrderDAO goodsOrderDAOMock = mock(GoodsOrderDAO.class);
+    private final GoodsOrderRepository goodsOrderRepositoryMock = mock(GoodsOrderRepository.class);
     private final OrderLineConverter orderLineConverterMock = mock(OrderLineConverter.class);
 
     private final GoodsOrderConverter goodsOrderConverter = new GoodsOrderConverter(orderLineConverterMock);
 
-    private final GoodsOrderService goodsOrderService =
-            new GoodsOrderService(goodsOrderDAOMock, goodsOrderConverter);
+    private final ru.scur.orderapp.service.GoodsOrderService goodsOrderService =
+            new ru.scur.orderapp.service.GoodsOrderService(goodsOrderRepositoryMock, goodsOrderConverter);
 
     @Test
     void shouldCreateOrder() {
         GoodsOrderDTO expected = GoodsOrderDTOUtil.getGoodsOrderDTO();
         GoodsOrder goodsOrder = GoodsOrderUtil.getGoodsOrder();
         GoodsOrder sss = new GoodsOrder(null, goodsOrder.getClient(), goodsOrder.getDate(), goodsOrder.getAddress(), null);
-        when(goodsOrderDAOMock.save(any())).thenReturn(goodsOrder);
+        when(goodsOrderRepositoryMock.save(any())).thenReturn(goodsOrder);
         GoodsOrderDTO actual = goodsOrderService.createGoodsOrder(expected);
 
         assertEquals(expected, actual);
 
-        verify(goodsOrderDAOMock).save(sss);
+        verify(goodsOrderRepositoryMock).save(sss);
     }
 
     @Test
     void shouldGetOrder() {
         Long id = 10L;
         GoodsOrder expected = GoodsOrderUtil.getGoodsOrder();
-        when(goodsOrderDAOMock.findById(any())).thenReturn(Optional.of(expected));
+        when(goodsOrderRepositoryMock.findById(any())).thenReturn(Optional.of(expected));
         GoodsOrder actual = goodsOrderService.getGoodsOrder(id);
 
         assertEquals(expected, actual);
 
-        verify(goodsOrderDAOMock).findById(id);
+        verify(goodsOrderRepositoryMock).findById(id);
     }
 
     @Test
@@ -56,7 +56,7 @@ class GoodsOrderServiceTest {
         Long id = 10L;
         GoodsOrderDTO expected = GoodsOrderDTOUtil.getGoodsOrderDTO();
         GoodsOrder goodsOrder = GoodsOrderUtil.getGoodsOrder();
-        when(goodsOrderDAOMock.findById(any())).thenReturn(Optional.of(goodsOrder));
+        when(goodsOrderRepositoryMock.findById(any())).thenReturn(Optional.of(goodsOrder));
 
         GoodsOrderDTO actual = goodsOrderService.getGoodsOrderById(id);
 
@@ -68,8 +68,8 @@ class GoodsOrderServiceTest {
         Long id = 10L;
         GoodsOrder goodsOrder = GoodsOrderUtil.getGoodsOrder();
         GoodsOrderDTO expected = GoodsOrderDTOUtil.getGoodsOrderDTO();
-        when(goodsOrderDAOMock.findById(any())).thenReturn(Optional.of(goodsOrder));
-        when(goodsOrderDAOMock.save(any())).thenReturn(goodsOrder);
+        when(goodsOrderRepositoryMock.findById(any())).thenReturn(Optional.of(goodsOrder));
+        when(goodsOrderRepositoryMock.save(any())).thenReturn(goodsOrder);
 
         GoodsOrderDTO actual = goodsOrderService.editGoodsOrder(id, expected);
 
@@ -82,17 +82,17 @@ class GoodsOrderServiceTest {
 
         goodsOrderService.deleteGoodsOrderById(id);
 
-        verify(goodsOrderDAOMock).deleteById(id);
+        verify(goodsOrderRepositoryMock).deleteById(id);
     }
 
     @Test
     void shouldGetAllOrders() {
         List<GoodsOrderDTO> expected = new ArrayList<>();
-        when(goodsOrderDAOMock.findAll()).thenReturn(new ArrayList<>());
+        when(goodsOrderRepositoryMock.findAll()).thenReturn(new ArrayList<>());
 
         List<GoodsOrderDTO> actual = goodsOrderService.getAllGoodsOrders();
 
         assertEquals(expected, actual);
-        verify(goodsOrderDAOMock).findAll();
+        verify(goodsOrderRepositoryMock).findAll();
     }
 }
