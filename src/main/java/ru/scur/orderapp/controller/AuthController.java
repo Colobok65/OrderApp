@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/order_app/auth")
+@RequestMapping("/order_app/auth/")
 @PreAuthorize("permitAll()")
 public class AuthController {
 
@@ -36,7 +36,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/signin")
+    @PostMapping("signin")
     public ResponseEntity<Object> authenticateUser(
             @Valid @RequestBody LoginRequest loginRequest,
             BindingResult bindingResult) {
@@ -56,7 +56,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/signup")
+    @PostMapping("signup")
     public ResponseEntity<Object> registerUser(
             @Valid @RequestBody SignupRequest signupRequest,
             BindingResult bindingResult) {

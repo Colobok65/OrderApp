@@ -14,6 +14,7 @@ export class OrderLineComponent implements OnInit {
   isDataLoaded = false;
   isButtonPushed = false;
   isPanelActivated = false;
+  isAdding = false;
   lines: OrderLine[] = [];
   line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: '', price: 0};
   clonedLines: { [s: string]: OrderLine; } = {};

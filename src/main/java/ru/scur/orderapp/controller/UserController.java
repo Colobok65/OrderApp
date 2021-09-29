@@ -27,7 +27,7 @@ public class UserController {
         return userConverter.toUserDTO(userService.getCurrentUser(principal));
     }
 
-    @PostMapping("/update")
+    @PutMapping()
     public UserDTO updateUser(@Valid @RequestBody UserDTO userDto, Principal principal) {
         return userConverter.toUserDTO(userService.updateUser(userDto, principal));
     }

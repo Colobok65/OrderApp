@@ -1,5 +1,6 @@
 package ru.scur.orderapp.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.scur.orderapp.dto.GoodsDTO;
 import ru.scur.orderapp.service.GoodsService;
@@ -9,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order_app/goods")
 @CrossOrigin
+@PreAuthorize("hasRole('ADMIN')")
 public class GoodsController {
 
     private final GoodsService goodsService;

@@ -16,6 +16,9 @@ import {AddGoodsComponent} from './components/add-goods/add-goods.component';
 import {MenuModule} from 'primeng/menu';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MenubarModule} from 'primeng/menubar';
+import {authInterceptorProviders} from './services/security/auth-interceptor.service';
+import {DialogModule} from 'primeng/dialog';
+import {authErrorInterceptorProvider} from './services/security/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,9 +39,10 @@ import {MenubarModule} from 'primeng/menubar';
     RippleModule,
     MenuModule,
     BrowserAnimationsModule,
-    MenubarModule
+    MenubarModule,
+    DialogModule,
   ],
-  providers: [],
+  providers: [authInterceptorProviders, authErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

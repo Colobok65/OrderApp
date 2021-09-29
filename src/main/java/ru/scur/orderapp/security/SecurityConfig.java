@@ -18,6 +18,7 @@ import ru.scur.orderapp.service.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
+        prePostEnabled = true,
         securedEnabled = true,
         jsr250Enabled = true,
         proxyTargetClass = true
@@ -32,15 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.cors()
+                .and()
+                .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
                 .antMatchers(SecurityConstants.SING_UP_URLS).permitAll()
-//                .antMatchers("/order_app/user/**").hasAnyAuthority("USER", "ADMIN")
-//                .antMatchers("/order_app/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
