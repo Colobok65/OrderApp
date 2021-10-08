@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order_app/order")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class GoodsOrderController {
 
     private final GoodsOrderService goodsOrderService;
@@ -22,12 +22,12 @@ public class GoodsOrderController {
         return goodsOrderService.createGoodsOrder(goodsOrderDTO);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<GoodsOrderDTO> getAllGoodsOrders(){
         return goodsOrderService.getAllGoodsOrders();
     }
 
-    @GetMapping("/all/{user_id}")
+    @GetMapping("/user/{user_id}")
     public List<GoodsOrderDTO> getAllOrdersByUserId(@PathVariable("user_id") Long userId) {
         return goodsOrderService.getAllGoodsOrdersByUserId(userId);
     }

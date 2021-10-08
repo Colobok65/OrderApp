@@ -2,14 +2,15 @@ package ru.scur.orderapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.scur.orderapp.model.User;
 import ru.scur.orderapp.payload.request.LoginRequest;
 import ru.scur.orderapp.payload.request.SignupRequest;
 import ru.scur.orderapp.payload.response.JwtTokenSuccessResponse;
@@ -20,11 +21,11 @@ import ru.scur.orderapp.service.UserService;
 import ru.scur.orderapp.validations.ResponseErrorValidation;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/order_app/auth/")
-@PreAuthorize("permitAll()")
 public class AuthController {
 
     @Autowired
@@ -44,9 +45,14 @@ public class AuthController {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if(!ObjectUtils.isEmpty(errors)) return errors;
 
+        User user = userService.getUserByUsername(loginRequest.getLogin());
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getLogin(),
-                loginRequest.getPassword()
+                loginRequest.getPassword(),
+                user.getRoles().stream()
+                        .map(role -> new SimpleGrantedAuthority(role.name()))
+                        .collect(Collectors.toList())
         ));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order_app/line")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class OrderLineController {
     private final OrderLineService orderLineService;
 

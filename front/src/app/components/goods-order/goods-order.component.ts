@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GoodsOrderService} from '../../services/goods-order/goods-order.service';
 import {GoodsOrder} from '../../models/GoodsOrder';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user/user.service';
+import {TokenStorageService} from '../../services/security/token-storage.service';
 
 @Component({
   selector: 'app-goods-order',
@@ -14,43 +16,51 @@ export class GoodsOrderComponent implements OnInit {
   isPushedButton = false;
   isActivatedForm = false;
   orders: GoodsOrder[] = [];
+  userId = this.getUserIdFromToken();
   order: GoodsOrder = {id: 0, address: '', date: '', client: '', lines: []};
   clonedOrders: { [s: string]: GoodsOrder; } = {};
 
   constructor(private goodsOrderService: GoodsOrderService,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService,
+              private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.getAllOrders();
-  }
-
-  getAllOrders(): void {
-    this.goodsOrderService.getAllOrders().subscribe(data => {
-      this.orders = data;
-      this.isDataLoaded = true;
-    });
+    this.getAllOrdersByUserId();
   }
 
   addOrder(): void {
     this.goodsOrderService.createOrder(this.order).subscribe(() => {
       this.order.address = '';
       this.order.client = '';
-      this.getAllOrders();
+      this.getAllOrdersByUserId();
       this.isPushedButton = false;
       this.isActivatedForm = false;
+    });
+  }
+
+  getUserIdFromToken(): number {
+    return this.tokenService.getUserIdFromToken().id;
+  }
+
+  getAllOrdersByUserId(): void {
+    this.goodsOrderService.getOrdersByUserId(this.userId)
+      .subscribe(data => {
+        this.orders = data;
+        this.isDataLoaded = true;
     });
   }
 
   deleteOrder(id: number): void {
     const result = confirm('Вы действительно хотите удалить этот заказ?');
     if (result) {
-      this.goodsOrderService.deleteOrder(id).subscribe(() => this.getAllOrders());
+      this.goodsOrderService.deleteOrder(id).subscribe(() => this.getAllOrdersByUserId());
     }
   }
 
   updateOrder(order: GoodsOrder): void {
     this.goodsOrderService.updateOrder(order.id || 0, order)
-      .subscribe(() => this.getAllOrders());
+      .subscribe(() => this.getAllOrdersByUserId());
   }
 
   onRowEditInit(order: GoodsOrder): void {
@@ -78,7 +88,7 @@ export class GoodsOrderComponent implements OnInit {
   }
 
   showGoods(id: number): void {
-    this.router.navigate(['/line/order', id]);
+    this.router.navigate(['order/goods', id]);
   }
 
 }

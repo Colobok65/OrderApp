@@ -66,11 +66,11 @@
   <div style="display: flex">
     <div class="p-field" style="margin-right: 1rem">
       <label for="name" class="p-sr-only">Name</label>
-      <input id="name" type="text" pInputText [(ngModel)]="order.client">
+      <input id="name" type="text" pInputText placeholder="Name" [(ngModel)]="order.client">
     </div>
     <div class="p-field" style="margin-right: 1rem">
       <label for="price" class="p-sr-only">Price</label>
-      <input id="price" type="text" pInputText [(ngModel)]="order.address">
+      <input id="price" type="text" pInputText placeholder="Price" [(ngModel)]="order.address">
     </div>
     <button pButton type="button" icon="pi pi-check" label="Create"
             (click)="addOrder()" style="margin-right: 1rem"></button>

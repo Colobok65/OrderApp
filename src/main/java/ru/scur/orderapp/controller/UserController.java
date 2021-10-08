@@ -8,7 +8,7 @@ import ru.scur.orderapp.service.UserService;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/order_app/user")
 public class UserController {

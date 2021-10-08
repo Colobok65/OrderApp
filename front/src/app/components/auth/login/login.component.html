@@ -1,0 +1,26 @@
+<div class="login-page">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm">
+    <div class="p-field">
+      <label for="login" class="p-col-fixed"></label>
+      <div class="p-col">
+        <input id="login" type="text" style="width:300px" pInputText placeholder="Login"
+        formControlName="login">
+      </div>
+    </div>
+    <div class="p-field" style="margin-top: 1rem">
+      <label for="password" class="p-col-fixed"></label>
+      <div class="p-col">
+        <input id="password" type="password" style="width:300px" pInputText placeholder="Password"
+        formControlName="password">
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem">
+      <button pButton type="button" [disabled]="loginForm.invalid" (click)="submit()" label="Login"></button>
+    </div>
+
+    <a routerLink="/register">Register</a>
+
+  </form>
+</div>

@@ -8,9 +8,10 @@ import ru.scur.orderapp.service.GoodsService;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/order_app/goods")
-@CrossOrigin
 @PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class GoodsController {
 
     private final GoodsService goodsService;
@@ -45,3 +46,6 @@ public class GoodsController {
         return goodsService.editGoods(id, goodsDTO);
     }
 }
+
+
+

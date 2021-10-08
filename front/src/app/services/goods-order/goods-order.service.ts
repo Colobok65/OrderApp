@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GoodsOrder} from '../../models/GoodsOrder';
 
-const ORDER_API = 'http://localhost:9000/order_app/order';
+const ORDER_API = 'http://localhost:8080/order_app/order';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,9 @@ export class GoodsOrderService {
 
   updateOrder(id: number, order: GoodsOrder): Observable<any> {
     return this.http.put(ORDER_API + '/' + id, order);
+  }
+
+  getOrdersByUserId(id: number): Observable<any> {
+    return this.http.get(ORDER_API + '/user/' + id);
   }
 }

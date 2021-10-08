@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {OrderLineComponent} from './components/order-line/order-line.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {RippleModule} from 'primeng/ripple';
 import {AddGoodsComponent} from './components/add-goods/add-goods.component';
@@ -19,6 +19,9 @@ import {MenubarModule} from 'primeng/menubar';
 import {authInterceptorProviders} from './services/security/auth-interceptor.service';
 import {DialogModule} from 'primeng/dialog';
 import {authErrorInterceptorProvider} from './services/security/error-interceptor.service';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import {authErrorInterceptorProvider} from './services/security/error-intercepto
     GoodsComponent,
     OrderLineComponent,
     AddGoodsComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +47,7 @@ import {authErrorInterceptorProvider} from './services/security/error-intercepto
     BrowserAnimationsModule,
     MenubarModule,
     DialogModule,
+    ReactiveFormsModule,
   ],
   providers: [authInterceptorProviders, authErrorInterceptorProvider],
   bootstrap: [AppComponent]
