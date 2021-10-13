@@ -21,15 +21,9 @@ public class GoodsOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "client")
-    private String client;
-
     @Column(updatable = false)
     @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss")
     private LocalDateTime date = LocalDateTime.now();
-
-    @Column(name = "address")
-    private String address;
 
     @OneToMany(mappedBy = "goodsOrder")
     private List<OrderLine> orderLines = new ArrayList<>();

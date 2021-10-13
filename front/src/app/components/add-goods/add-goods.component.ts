@@ -3,7 +3,7 @@ import {OrderLine} from '../../models/OrderLine';
 import {OrderLineService} from '../../services/order-line/order-line.service';
 import {GoodsService} from '../../services/goods/goods.service';
 import {Goods} from '../../models/Goods';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-goods',
@@ -12,22 +12,20 @@ import {Router} from '@angular/router';
 })
 export class AddGoodsComponent implements OnInit {
 
-  orderId = 0;
   isDataLoaded = false;
   lines: OrderLine[] = [];
   linesFromCurrentOrder: OrderLine[] = [];
   products: Goods[] = [];
+  orderId = +(this.activatedRoute.snapshot.paramMap.get('id') as string);
+
 
   constructor(private orderLineService: OrderLineService,
               private goodsService: GoodsService,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
   }
 
   async ngOnInit(): Promise<void> {
-    const reg = this.router.url.match('\\d');
-    if (reg) {
-      this.orderId = +reg[0];
-    }
     await this.getAllGoods();
     await this.getLinesByCurrentOrder();
     this.initLines();
@@ -61,7 +59,10 @@ export class AddGoodsComponent implements OnInit {
             orderId: this.orderId,
             goodsName: line.goodsName,
             price: line.price
-          }).subscribe(data => this.lines = data);
+          }).subscribe(data => {
+            this.router.navigate(['line/order/' + this.orderId]);
+            this.isDataLoaded = false;
+          });
       });
   }
 

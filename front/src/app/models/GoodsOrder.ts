@@ -5,5 +5,6 @@ export interface GoodsOrder {
   client: string;
   date: string;
   address: string;
+  userId: number;
   lines: OrderLine[];
 }

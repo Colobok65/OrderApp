@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderLineService} from '../../services/order-line/order-line.service';
 import {OrderLine} from '../../models/OrderLine';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-order-line',
@@ -14,14 +14,14 @@ export class OrderLineComponent implements OnInit {
   isDataLoaded = false;
   isButtonPushed = false;
   isPanelActivated = false;
-  isAdding = false;
   lines: OrderLine[] = [];
   line: OrderLine = {id: 0, orderId: 0, goodsId: 0, countNumber: 0, goodsName: '', price: 0};
   clonedLines: { [s: string]: OrderLine; } = {};
   totalSum = 0;
 
   constructor(private orderLineService: OrderLineService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getLinesForCurrentOrder();
@@ -62,7 +62,8 @@ export class OrderLineComponent implements OnInit {
     delete this.clonedLines[line.id || 0];
   }
 
-  showGoodsPanel(): void {
+  addGoods(): void {
+    this.router.navigate(['line/order/add/' + this.orderId]);
     this.isPanelActivated = true;
     this.isButtonPushed = true;
   }

@@ -2,7 +2,8 @@ import {OrderLine} from './OrderLine';
 
 export interface User {
   id?: number;
-  login: string;
   username: string;
+  login: string;
+  address: string;
   orders: OrderLine[];
 }

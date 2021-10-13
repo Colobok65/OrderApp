@@ -22,6 +22,7 @@ import {authErrorInterceptorProvider} from './services/security/error-intercepto
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { UserComponent } from './components/user/user.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { UserComponent } from './components/user/user.component';
     MenubarModule,
     DialogModule,
     ReactiveFormsModule,
+    AutoCompleteModule
   ],
   providers: [authInterceptorProviders, authErrorInterceptorProvider],
   bootstrap: [AppComponent]

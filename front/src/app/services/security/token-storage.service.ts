@@ -21,7 +21,7 @@ export class TokenStorageService {
     sessionStorage.setItem(TOKEN_PARSE, JSON.stringify(jwtDecode(token)));
   }
 
-  getUserIdFromToken(): any {
+  getObjectFromToken(): any {
     return JSON.parse(sessionStorage.getItem(TOKEN_PARSE) as string);
   }
 

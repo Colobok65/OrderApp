@@ -1,6 +1,5 @@
 package ru.scur.orderapp.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.scur.orderapp.dto.GoodsDTO;
 import ru.scur.orderapp.service.GoodsService;
@@ -10,7 +9,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/order_app/goods")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class GoodsController {
 

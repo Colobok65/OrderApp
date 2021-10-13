@@ -9,23 +9,24 @@
   <p-table [value]="orders" dataKey="id" editMode="row">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="id">№ Заказа <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="id" style="width:9rem">№ Заказа <p-sortIcon field="id"></p-sortIcon></th>
         <th pSortableColumn="client">Клиент <p-sortIcon field="client"></p-sortIcon></th>
         <th pSortableColumn="address">Адрес <p-sortIcon field="address"></p-sortIcon></th>
         <th pSortableColumn="date">Дата создания <p-sortIcon field="date"></p-sortIcon></th>
         <th style="width:8rem"></th>
-        <th style="width:8rem; text-align: center">Редактировать</th>
         <th style="width:8rem; text-align: center">Удалить</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-ord let-editing="editing" let-ri="rowIndex">
-      <tr [pEditableRow]="ord">
+      <tr>
         <td>{{ord.id}}</td>
         <td>
           <p-cellEditor>
             <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="ord.client">
+              <label>
+                <input pInputText type="text" [(ngModel)]="ord.client">
+              </label>
             </ng-template>
             <ng-template pTemplate="output">
               {{ord.client}}
@@ -48,11 +49,6 @@
         <td>
           <button pButton icon="pi pi-shopping-cart" label="Товары" (click)="showGoods(ord.id)"></button>
         </td>
-        <td style="text-align:center">
-          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(ord)" class="p-button-rounded p-button-text"></button>
-          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(ord)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(ord, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-        </td>
         <td style="text-align: center">
           <button pButton class="p-button-danger"
                   icon="pi pi-trash" (click)="deleteOrder(ord.id)"></button>
@@ -62,23 +58,7 @@
   </p-table>
 </div>
 
-<div *ngIf="isActivatedForm" style="margin: 1rem 0">
-  <div style="display: flex">
-    <div class="p-field" style="margin-right: 1rem">
-      <label for="name" class="p-sr-only">Name</label>
-      <input id="name" type="text" pInputText placeholder="Name" [(ngModel)]="order.client">
-    </div>
-    <div class="p-field" style="margin-right: 1rem">
-      <label for="price" class="p-sr-only">Price</label>
-      <input id="price" type="text" pInputText placeholder="Price" [(ngModel)]="order.address">
-    </div>
-    <button pButton type="button" icon="pi pi-check" label="Create"
-            (click)="addOrder()" style="margin-right: 1rem"></button>
-    <button pButton type="button" label="Cancel" icon="pi pi-sign-in" (click)="cancel()"></button>
-  </div>
-</div>
-
-<div *ngIf="!isPushedButton" style="margin-top: 1rem">
-  <button pButton label="Добавить новый заказ" icon="pi pi-plus" (click)="addNewOrder()"></button>
+<div style="margin-top: 1rem">
+  <button pButton label="Добавить новый заказ" icon="pi pi-plus" (click)="addNewOrder(order)"></button>
 </div>
 

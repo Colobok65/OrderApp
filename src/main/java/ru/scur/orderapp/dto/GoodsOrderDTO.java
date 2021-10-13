@@ -15,5 +15,6 @@ public class GoodsOrderDTO {
     private String client;
     private LocalDateTime date;
     private String address;
+    private Long userId;
     private List<OrderLineDTO> orderLines;
 }

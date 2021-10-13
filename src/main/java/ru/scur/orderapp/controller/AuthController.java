@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
@@ -21,7 +20,6 @@ import ru.scur.orderapp.service.UserService;
 import ru.scur.orderapp.validations.ResponseErrorValidation;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -49,10 +47,10 @@ public class AuthController {
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getLogin(),
-                loginRequest.getPassword(),
-                user.getRoles().stream()
-                        .map(role -> new SimpleGrantedAuthority(role.name()))
-                        .collect(Collectors.toList())
+                loginRequest.getPassword()
+//                user.getRoles().stream()
+//                        .map(role -> new SimpleGrantedAuthority(role.name()))
+//                        .collect(Collectors.toList())
         ));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

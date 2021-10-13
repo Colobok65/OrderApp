@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     return this.fb.group({
       username: ['', Validators.compose([Validators.required])],
       login: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       confirmPassword: ['', Validators.compose([Validators.required])]
     });
@@ -37,6 +38,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register({
       username: this.registerForm.value.username,
       login: this.registerForm.value.login,
+      address: this.registerForm.value.address,
       password: this.registerForm.value.password,
       confirmPassword: this.registerForm.value.confirmPassword
     }).subscribe(data => {

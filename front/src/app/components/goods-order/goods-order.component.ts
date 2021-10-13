@@ -13,12 +13,9 @@ import {TokenStorageService} from '../../services/security/token-storage.service
 export class GoodsOrderComponent implements OnInit {
 
   isDataLoaded = false;
-  isPushedButton = false;
-  isActivatedForm = false;
   orders: GoodsOrder[] = [];
   userId = this.getUserIdFromToken();
-  order: GoodsOrder = {id: 0, address: '', date: '', client: '', lines: []};
-  clonedOrders: { [s: string]: GoodsOrder; } = {};
+  order: GoodsOrder = {id: 0, address: '', date: '', client: '', lines: [], userId: this.userId};
 
   constructor(private goodsOrderService: GoodsOrderService,
               private router: Router,
@@ -29,18 +26,8 @@ export class GoodsOrderComponent implements OnInit {
     this.getAllOrdersByUserId();
   }
 
-  addOrder(): void {
-    this.goodsOrderService.createOrder(this.order).subscribe(() => {
-      this.order.address = '';
-      this.order.client = '';
-      this.getAllOrdersByUserId();
-      this.isPushedButton = false;
-      this.isActivatedForm = false;
-    });
-  }
-
   getUserIdFromToken(): number {
-    return this.tokenService.getUserIdFromToken().id;
+    return this.tokenService.getObjectFromToken().id;
   }
 
   getAllOrdersByUserId(): void {
@@ -58,37 +45,13 @@ export class GoodsOrderComponent implements OnInit {
     }
   }
 
-  updateOrder(order: GoodsOrder): void {
-    this.goodsOrderService.updateOrder(order.id || 0, order)
+  addNewOrder(order: GoodsOrder): void {
+    this.goodsOrderService.createOrder(order)
       .subscribe(() => this.getAllOrdersByUserId());
   }
 
-  onRowEditInit(order: GoodsOrder): void {
-    this.clonedOrders[order.id || 0] = {...order};
-  }
-
-  onRowEditSave(order: GoodsOrder): void {
-    this.updateOrder(order);
-    delete this.clonedOrders[order.id || 0];
-  }
-
-  onRowEditCancel(order: GoodsOrder, index: number): void {
-    this.orders[index] = this.clonedOrders[order.id || 0];
-    delete this.clonedOrders[order.id || 0];
-  }
-
-  addNewOrder(): void {
-    this.isPushedButton = true;
-    this.isActivatedForm = true;
-  }
-
-  cancel(): void {
-    this.isPushedButton = false;
-    this.isActivatedForm = false;
-  }
-
   showGoods(id: number): void {
-    this.router.navigate(['order/goods', id]);
+    this.router.navigate(['line/order/', id]);
   }
 
 }

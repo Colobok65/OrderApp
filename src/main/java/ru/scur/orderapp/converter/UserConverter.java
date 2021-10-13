@@ -1,7 +1,5 @@
 package ru.scur.orderapp.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import ru.scur.orderapp.dto.UserDTO;
 import ru.scur.orderapp.model.User;
@@ -12,15 +10,12 @@ import java.util.stream.Collectors;
 @Service
 public class UserConverter {
 
-    @Autowired
-    private GoodsOrderConverter goodsOrderConverter;
-
     public UserDTO toUserDTO(User user){
         return new UserDTO(
                 user.getId(),
                 user.getLogin(),
                 user.getUsername(),
-                user.getOrders().stream().map(goodsOrderConverter::toOrderDTO).collect(Collectors.toList())
+                user.getAddress()
         );
     }
 

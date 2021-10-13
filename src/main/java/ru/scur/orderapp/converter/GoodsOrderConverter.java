@@ -11,16 +11,17 @@ import java.util.stream.Collectors;
 public class GoodsOrderConverter {
     private final OrderLineConverter orderLineConverter;
 
-    public GoodsOrderConverter(OrderLineConverter orderLineConverter) {
+    public GoodsOrderConverter(OrderLineConverter orderLineConverter, UserConverter userConverter) {
         this.orderLineConverter = orderLineConverter;
     }
 
     public GoodsOrderDTO toOrderDTO(GoodsOrder goodsOrder){
         return new GoodsOrderDTO(
                 goodsOrder.getId(),
-                goodsOrder.getClient(),
+                goodsOrder.getUser().getUsername(),
                 goodsOrder.getDate(),
-                goodsOrder.getAddress(),
+                goodsOrder.getUser().getAddress(),
+                goodsOrder.getUser().getId(),
                 orderLineConverter.toOrderLineDTOList(goodsOrder.getOrderLines())
         );
     }

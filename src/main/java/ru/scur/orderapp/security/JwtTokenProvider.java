@@ -23,7 +23,7 @@ public class JwtTokenProvider {
         claimsMap.put("id", userId);
         claimsMap.put("username", user.getUsername());
         claimsMap.put("login", user.getLogin());
-        claimsMap.put("roles", user.getAuthorities());
+        claimsMap.put("authorities", authentication.getAuthorities());
 
         return Jwts.builder()
                 .setSubject(userId)

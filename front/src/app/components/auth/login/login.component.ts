@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
       this.tokenService.saveUser(data);
       this.tokenService.saveParsedToken(data.token);
 
-      alert('Successfully logged in');
       this.router.navigate(['/order']);
       window.location.reload();
     }, error => {

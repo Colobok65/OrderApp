@@ -29,6 +29,7 @@ public class UserService {
         User user = new User();
         user.setUsername(userIn.getUsername());
         user.setLogin(userIn.getLogin());
+        user.setAddress(userIn.getAddress());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(Role.USER);
 
@@ -42,6 +43,8 @@ public class UserService {
     public User updateUser(UserDTO userDto, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setUsername(userDto.getUsername());
+        user.setLogin(userDto.getLogin());
+        user.setAddress(userDto.getAddress());
         return userRepository.save(user);
     }
 

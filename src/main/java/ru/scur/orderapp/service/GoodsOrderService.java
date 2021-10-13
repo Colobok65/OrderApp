@@ -6,6 +6,7 @@ import ru.scur.orderapp.dto.GoodsOrderDTO;
 import ru.scur.orderapp.exception.ThereIsNoSuchGoodsOrderException;
 import ru.scur.orderapp.model.GoodsOrder;
 import ru.scur.orderapp.repository.GoodsOrderRepository;
+import ru.scur.orderapp.repository.UserRepository;
 
 import java.util.List;
 
@@ -14,17 +15,18 @@ public class GoodsOrderService {
 
     private final GoodsOrderRepository goodsOrderRepository;
     private final GoodsOrderConverter goodsOrderConverter;
+    private final UserRepository userRepository;
 
 
-    public GoodsOrderService(GoodsOrderRepository goodsOrderRepository, GoodsOrderConverter goodsOrderConverter) {
+    public GoodsOrderService(GoodsOrderRepository goodsOrderRepository, GoodsOrderConverter goodsOrderConverter, UserRepository userRepository) {
         this.goodsOrderRepository = goodsOrderRepository;
         this.goodsOrderConverter = goodsOrderConverter;
+        this.userRepository = userRepository;
     }
 
     public GoodsOrderDTO createGoodsOrder(GoodsOrderDTO goodsOrderDTO){
         GoodsOrder goodsOrder = new GoodsOrder();
-        goodsOrder.setClient(goodsOrderDTO.getClient());
-        goodsOrder.setAddress(goodsOrderDTO.getAddress());
+        goodsOrder.setUser(userRepository.getOne(goodsOrderDTO.getUserId()));
         return goodsOrderConverter.toOrderDTO(goodsOrderRepository.save(goodsOrder));
     }
 
@@ -39,8 +41,6 @@ public class GoodsOrderService {
     public GoodsOrderDTO editGoodsOrder(Long id, GoodsOrderDTO goodsOrderDTO){
         GoodsOrder goodsOrder = getGoodsOrder(id);
         if (goodsOrder == null) throw new ThereIsNoSuchGoodsOrderException();
-        goodsOrder.setClient(goodsOrderDTO.getClient());
-        goodsOrder.setAddress(goodsOrderDTO.getAddress());
         return goodsOrderConverter.toOrderDTO(goodsOrderRepository.save(goodsOrder));
     }
 

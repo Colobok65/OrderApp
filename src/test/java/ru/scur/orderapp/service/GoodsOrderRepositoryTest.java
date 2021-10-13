@@ -21,10 +21,10 @@ class GoodsOrderRepositoryTest {
     private final GoodsOrderRepository goodsOrderRepositoryMock = mock(GoodsOrderRepository.class);
     private final OrderLineConverter orderLineConverterMock = mock(OrderLineConverter.class);
 
-    private final GoodsOrderConverter goodsOrderConverter = new GoodsOrderConverter(orderLineConverterMock);
+    private final GoodsOrderConverter goodsOrderConverter = new GoodsOrderConverter(orderLineConverterMock, userConverter);
 
     private final ru.scur.orderapp.service.GoodsOrderService goodsOrderService =
-            new ru.scur.orderapp.service.GoodsOrderService(goodsOrderRepositoryMock, goodsOrderConverter);
+            new ru.scur.orderapp.service.GoodsOrderService(goodsOrderRepositoryMock, goodsOrderConverter, userRepository);
 
     @Test
     void shouldCreateOrder() {

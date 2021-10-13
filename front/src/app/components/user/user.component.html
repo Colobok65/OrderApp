@@ -1,2 +1,22 @@
-<p>user works!</p>
-<h1>{{user.id}}</h1>
+<div>
+  <h1 style="text-align: center;
+      margin-top: 0;
+      border-bottom: 3px solid cornflowerblue;
+      color: cornflowerblue">Мои данные</h1>
+</div>
+
+
+<div style="text-align: center">
+  <label for="login">Login
+    <input id="login" type="text" pInputText [(ngModel)]="user.login">
+  </label>
+  <label for="username">Организация
+    <input id="username" type="text" pInputText [(ngModel)]="user.username">
+  </label>
+  <label for="address">Адрес
+    <input id="address" type="text" style="width: 20rem" pInputText [(ngModel)]="user.address">
+  </label>
+  <button pButton (click)="update()" label="Сохранить изменения"></button>
+</div>
+
+

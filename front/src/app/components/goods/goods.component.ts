@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GoodsService} from '../../services/goods/goods.service';
 import {Goods} from '../../models/Goods';
+import {TokenStorageService} from '../../services/security/token-storage.service';
 
 @Component({
   selector: 'app-goods',
@@ -16,10 +17,12 @@ export class GoodsComponent implements OnInit {
   goods: Goods = {id: 0, name: '', price: 0};
   clonedGoods: { [s: string]: Goods; } = {};
 
-  constructor(private goodsService: GoodsService) {}
+  constructor(private goodsService: GoodsService,
+              private tokenService: TokenStorageService) {}
 
   ngOnInit(): void {
     this.getAllGoods();
+    this.getRole();
   }
 
   getAllGoods(): void {
@@ -30,6 +33,10 @@ export class GoodsComponent implements OnInit {
           this.isDataLoaded = true;
         }
       );
+  }
+
+  getRole(): void {
+    this.tokenService.getObjectFromToken().id;
   }
 
   addGoods(): void {

@@ -9,7 +9,8 @@ import {UserService} from '../../services/user/user.service';
 })
 export class UserComponent implements OnInit {
 
-  user: User = {login: '', username: '', orders: []};
+  user: User = {login: '', username: '', orders: [], address: ''};
+  isDataLoaded = false;
 
   constructor(private userService: UserService) { }
 
@@ -18,7 +19,13 @@ export class UserComponent implements OnInit {
   }
 
   getCurrentUser(): void {
-    this.userService.getCurrentUser().subscribe(data => this.user = data);
+    this.userService.getCurrentUser().subscribe(data => {
+      this.user = data;
+      this.isDataLoaded = true;
+    });
   }
 
+  update(): void {
+    this.userService.updateUser(this.user).subscribe(() => this.getCurrentUser());
+  }
 }
