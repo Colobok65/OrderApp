@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +24,8 @@ public class GoodsOrder {
     @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss")
     private LocalDateTime date = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "goodsOrder")
-    private List<OrderLine> orderLines = new ArrayList<>();
+    @OneToMany(mappedBy = "goodsOrder", fetch = FetchType.LAZY)
+    private List<OrderLine> orderLines;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -29,7 +29,8 @@ public class User implements UserDetails {
     @JoinColumn(name = "addr")
     private String address;
 
-    @ElementCollection(targetClass = Role.class)
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles = new HashSet<>();
