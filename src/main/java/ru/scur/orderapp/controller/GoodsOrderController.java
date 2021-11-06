@@ -43,7 +43,7 @@ public class GoodsOrderController {
     }
 
     @PutMapping("/{id}")
-    public GoodsOrderDTO editGoodsOrder(@PathVariable("id") Long id, @RequestBody GoodsOrderDTO goodsOrderDTO){
-        return goodsOrderService.editGoodsOrder(id, goodsOrderDTO);
+    public GoodsOrderDTO editGoodsOrder(@PathVariable("id") Long id){
+        return goodsOrderService.editGoodsOrder(id);
     }
 }

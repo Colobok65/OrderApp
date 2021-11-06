@@ -24,10 +24,6 @@ export class GoodsOrderService {
     return this.http.delete(ORDER_API + '/' + id);
   }
 
-  updateOrder(id: number, order: GoodsOrder): Observable<any> {
-    return this.http.put(ORDER_API + '/' + id, order);
-  }
-
   getOrdersByUserId(id: number): Observable<any> {
     return this.http.get(ORDER_API + '/user/' + id);
   }

@@ -8,6 +8,10 @@ import java.util.Collections;
 public class GoodsOrderUtil {
 
     public static GoodsOrder getGoodsOrder(){
-        return new GoodsOrder(1234567L, LocalDateTime.now(), Collections.emptyList(), null);
+        return new GoodsOrder(
+                1L,
+                LocalDateTime.now(),
+                Collections.emptyList(),
+                UserUtil.getUser());
     }
 }

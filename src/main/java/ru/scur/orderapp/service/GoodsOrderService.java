@@ -38,7 +38,7 @@ public class GoodsOrderService {
         return goodsOrderConverter.toOrderDTO(getGoodsOrder(id));
     }
 
-    public GoodsOrderDTO editGoodsOrder(Long id, GoodsOrderDTO goodsOrderDTO){
+    public GoodsOrderDTO editGoodsOrder(Long id){
         GoodsOrder goodsOrder = getGoodsOrder(id);
         if (goodsOrder == null) throw new ThereIsNoSuchGoodsOrderException();
         return goodsOrderConverter.toOrderDTO(goodsOrderRepository.save(goodsOrder));

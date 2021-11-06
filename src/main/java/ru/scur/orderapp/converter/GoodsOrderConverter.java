@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class GoodsOrderConverter {
     private final OrderLineConverter orderLineConverter;
 
-    public GoodsOrderConverter(OrderLineConverter orderLineConverter, UserConverter userConverter) {
+    public GoodsOrderConverter(OrderLineConverter orderLineConverter) {
         this.orderLineConverter = orderLineConverter;
     }
 

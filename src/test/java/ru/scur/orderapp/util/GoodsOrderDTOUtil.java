@@ -8,6 +8,12 @@ import java.util.Collections;
 public class GoodsOrderDTOUtil {
 
     public static GoodsOrderDTO getGoodsOrderDTO(){
-        return new GoodsOrderDTO(1L, "client", LocalDateTime.now(), "address", 1L, Collections.emptyList());
+        return new GoodsOrderDTO(
+                1L,
+                "username",
+                LocalDateTime.now(),
+                "address",
+                1L,
+                Collections.emptyList());
     }
 }
