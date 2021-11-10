@@ -6,7 +6,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.scur.orderapp.dto.UserDTO;
 import ru.scur.orderapp.exception.UserExistException;
-import ru.scur.orderapp.model.Role;
 import ru.scur.orderapp.model.User;
 import ru.scur.orderapp.payload.request.SignupRequest;
 import ru.scur.orderapp.repository.UserRepository;
@@ -31,7 +30,6 @@ public class UserService {
         user.setLogin(userIn.getLogin());
         user.setAddress(userIn.getAddress());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
-        user.getRoles().add(Role.USER);
 
         try {
             return userRepository.save(user);
@@ -56,10 +54,6 @@ public class UserService {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
-    }
-
-    public User getUserById(Long id) {
-        return userRepository.findUserById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     public User getUserByUsername(String username) {

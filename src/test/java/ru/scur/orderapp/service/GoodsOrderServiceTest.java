@@ -88,7 +88,13 @@ class GoodsOrderServiceTest {
 
     @Test
     void shouldGetAllGoodsOrdersByUserId() {
-        Long userId = 10L;
+        List<GoodsOrderDTO> expected = new ArrayList<>();
         when(goodsOrderRepositoryMock.findGoodsOrdersByUserId(any())).thenReturn(new ArrayList<>());
+
+        List<GoodsOrderDTO> actual = goodsOrderService.getAllGoodsOrdersByUserId(10L);
+
+        assertEquals(expected, actual);
+
+        verify(goodsOrderRepositoryMock).findGoodsOrdersByUserId(10L);
     }
 }

@@ -1,11 +1,11 @@
 package ru.scur.orderapp.model;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Table(name = "user")
@@ -29,11 +29,13 @@ public class User implements UserDetails {
     @JoinColumn(name = "addr")
     private String address;
 
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
+    private List<Authority> authorities;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -50,7 +52,7 @@ public class User implements UserDetails {
                 String login,
                 String address,
                 String password,
-                Collection<? extends GrantedAuthority> authorities) {
+                List<Authority> authorities) {
         this.id = id;
         this.username = username;
         this.login = login;
@@ -58,9 +60,6 @@ public class User implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-
-    @Transient
-    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public String getPassword() {
