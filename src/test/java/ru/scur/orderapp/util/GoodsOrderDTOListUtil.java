@@ -7,6 +7,8 @@ import java.util.List;
 
 public class GoodsOrderDTOListUtil {
     public static List<GoodsOrderDTO> getGoodsOrderDtoList(){
-        return new ArrayList<>();
+        List<GoodsOrderDTO> goodsOrderDTOList = new ArrayList<>();
+        goodsOrderDTOList.add(GoodsOrderDTOUtil.getGoodsOrderDTO());
+        return goodsOrderDTOList;
     }
 }
