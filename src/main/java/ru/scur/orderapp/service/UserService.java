@@ -8,20 +8,24 @@ import ru.scur.orderapp.dto.UserDTO;
 import ru.scur.orderapp.exception.UserExistException;
 import ru.scur.orderapp.model.User;
 import ru.scur.orderapp.payload.request.SignupRequest;
+import ru.scur.orderapp.repository.AuthorityRepository;
 import ru.scur.orderapp.repository.UserRepository;
 
 import java.security.Principal;
+import java.util.Collections;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final AuthorityRepository authorityRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityRepository = authorityRepository;
     }
 
     public User createUser(SignupRequest userIn) {
@@ -29,6 +33,7 @@ public class UserService {
         user.setUsername(userIn.getUsername());
         user.setLogin(userIn.getLogin());
         user.setAddress(userIn.getAddress());
+        user.setAuthorities(Collections.singletonList(authorityRepository.getOne(1L)));
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
 
         try {

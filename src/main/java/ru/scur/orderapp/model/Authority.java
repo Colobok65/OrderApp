@@ -1,11 +1,12 @@
 package ru.scur.orderapp.model;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
+@Data
 @Table(name = "authority")
 public class Authority implements GrantedAuthority {
 
@@ -14,9 +15,6 @@ public class Authority implements GrantedAuthority {
     private Long id;
 
     private String name;
-
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
-    private List<User> users;
 
     @Override
     public String getAuthority() {

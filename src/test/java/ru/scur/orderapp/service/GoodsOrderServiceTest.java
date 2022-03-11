@@ -62,7 +62,7 @@ class GoodsOrderServiceTest {
 
         assertEquals(expected, actual);
 
-        verify(goodsOrderRepositoryMock).findById(id);
+        verify(goodsOrderRepositoryMock).findById(any());
         verify(goodsOrderConverterMock).toOrderDTO(any());
     }
 

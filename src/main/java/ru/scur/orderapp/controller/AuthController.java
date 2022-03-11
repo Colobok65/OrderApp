@@ -1,6 +1,7 @@
 package ru.scur.orderapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +37,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("signin")
+    @Lazy
     public ResponseEntity<Object> authenticateUser(
             @Valid @RequestBody LoginRequest loginRequest,
             BindingResult bindingResult) {
