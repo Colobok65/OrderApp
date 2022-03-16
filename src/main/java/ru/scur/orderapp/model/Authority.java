@@ -11,9 +11,7 @@ import javax.persistence.*;
 public class Authority implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "name")
     private String name;
 
     @Override

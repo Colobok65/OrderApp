@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @JoinTable(
             name = "user_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
+            inverseJoinColumns = @JoinColumn(name = "authority_name")
     )
     private List<Authority> authorities;
 

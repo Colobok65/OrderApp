@@ -33,7 +33,7 @@ public class UserService {
         user.setUsername(userIn.getUsername());
         user.setLogin(userIn.getLogin());
         user.setAddress(userIn.getAddress());
-        user.setAuthorities(Collections.singletonList(authorityRepository.getOne(1L)));
+        user.setAuthorities(Collections.singletonList(authorityRepository.findByName("USER")));
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
 
         try {

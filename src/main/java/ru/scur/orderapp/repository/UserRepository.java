@@ -7,7 +7,7 @@ import ru.scur.orderapp.model.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("FROM User u LEFT JOIN FETCH u.authorities r WHERE u.login = :login")
+    @Query("FROM User u LEFT JOIN FETCH u.authorities WHERE u.login = :login")
     Optional<User> findUserByLogin(String login);
     Optional<User> findUserById(Long id);
     Optional<User> findUserByUsername(String username);
